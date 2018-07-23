@@ -1,0 +1,32 @@
+html{
+   font-size: calc(100vw/3.75);
+   font-size: 6.25%;
+}
+@media (min-width: 414px){
+    html{
+        font-size: 110.4px;
+    }
+}
+*{
+    margin: 0;
+    padding: 0;
+    outline: 0;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+html,body{
+    height: 100%;
+}
+body {
+    font-size: .14rem;
+    color: #333;
+    background: #fff;
+    font-family: "microsoft yahei","Helvetica Neue", Helvetica, STHeiTi, sans-serif;
+}
+input,textarea{border-radius: 0;}
+ul{ list-style-type: none; }
+a{ text-decoration: none; }
+a:active,button:active{ opacity: .7; }
+.text-center{text-align: center !important;}
+.hidden{ display: none; }
+.flex{display: flex;-webkit-align-items: center;}
+.flex-1{-webkit-flex: 1;}

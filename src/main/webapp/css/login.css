@@ -1,0 +1,71 @@
+.form1{
+	width: 100%;
+}
+.box{
+	display: table;
+	position: absolute;
+	width: 1000px;
+	height: 600px;
+	left: 50%;
+	top: 50%;
+	margin-left: -500px;
+	margin-top: -400px;
+}
+.left{
+	width: 60%;	
+	background: url(../img/login-02.png) right no-repeat;
+	display:table-cell;
+	vertical-align:middle;
+}
+.right{
+	width: 40%;
+	display: table-cell;
+	vertical-align: middle;
+	text-align: center;
+}
+.in_box{
+	
+	float:right
+}
+.in_name{
+	display: table;
+	height:55px;
+	line-height: 55px;
+	border-bottom: solid 1px #d7e5f2;
+	box-sizing: border-box;
+}
+.right input{
+	border: none;
+	font-size: 16px;
+	margin-left: 10px;
+	height:55px;
+	line-height: 55px;
+	box-sizing: border-box;
+}
+.iconfont{
+	color:#1ABDE6;
+	font-size: 20px;
+}
+.in_pwd{
+	height:55px;
+	line-height: 55px;
+	display: table;
+}
+.in_smt{
+	border-radius: 10px;
+	border: none;
+	width: 230px;
+	height: 55px;
+	line-height: 45px;	
+}
+a{
+	border-radius: 10px;
+	background:#eee;
+	margin-top: 5px;
+	display: block;
+	border: 1px solid #C4C4C4;
+	width: 230px;
+	height: 55px;
+}
+
+

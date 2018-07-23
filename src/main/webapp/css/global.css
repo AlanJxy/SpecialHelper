@@ -1,0 +1,148 @@
+html{
+	font-size: 62.5%;
+}
+body{
+	font-size:1.6rem ;
+}
+ul li{
+	list-style:none;
+}
+.p-header{
+	padding: 4rem 0 2.5rem;
+}
+.user{
+	display: inline-table;
+}
+.icon-lianxiren{
+	float: left;
+	color:#1ABDE6;
+	width: 2.5rem;
+	height: 2.5rem;
+	border: 1px solid #1ABDE6;
+	border-radius: 1.3rem;
+	text-align: center;
+	vertical-align: middle;
+}
+.username{
+	float:left;
+	color: #1ABDE6;
+	margin-left: 0.5rem;
+	margin-top: 0.2rem;	
+}
+.pull-right a{
+	display: inline-block;
+	vertical-align: middle;
+	height: 3rem;
+	line-height: 3rem;
+	padding: 0 2rem;
+	background: #2ea7e0;
+	color: #fff;
+	border-radius: 1.3rem;
+	margin-left: 1.5rem;
+	margin-top: -1.8rem;
+	/*font-size: 1.8rem;*/
+	text-decoration: none;
+}
+.icon-shouye-copy{
+	color:#1ABDE6;
+}
+.p-container{
+	margin: auto;
+	width: 100%;
+}
+.p-nav{
+	width: 100%;
+	background: #3f3b3a;
+	height: 4.5rem;
+	line-height: 4.5rem;
+	margin-top: 2rem;
+}
+.nav-pills{
+	display: flex;
+	justify-content: space-around;
+	height: 4.5rem;
+	line-height: 4.5rem;
+}
+.p-nav ul li{
+	float: left;
+}
+.p-nav ul li a{
+	color:#fff;
+	padding: 0 1.5rem;
+}
+.count{
+	display: flex;
+	justify-content:space-around;
+	/*margin-top:3rem;*/
+	padding: 0;
+}
+.count .tmt{
+	/*width: 1.5rem;*/
+	margin-top: 2rem;
+	margin-bottom: 2rem;
+	padding: 0.5rem 1.5rem;
+	border: 1px solid #2ea7e0;
+	border-radius: 1rem;
+	color:#2ea7e0;
+	text-align: center;
+	/*margin-left: 25%;*/
+	font-weight: 600;
+}
+
+.num_left{
+	float: left;
+	color:#2EA7E0;
+	/*font-size: 1.7rem;*/
+}
+.num_right{
+	text-align: right;
+	color:darkgray;
+	/*font-size: 1.8rem;*/
+}
+.btn-group{
+	float: left;
+}
+.top_box{
+	margin-top: 2rem;
+}
+.p-main-index{
+	width: 80%;
+	margin: 0 auto;
+	border: 1px solid red;
+}
+.time_box{
+	/*margin-top: 0.9rem;*/
+	float: left;
+	/*margin-left: 3rem;*/
+}
+.time_box input{
+	display: block;
+	width: 10rem;
+	float: left;
+	text-align: center;
+}
+.btn{
+	background-color: #fff;
+}
+.dld{
+	margin-top: 0.9rem;
+	margin-left: 2rem;
+}
+.txt{
+	float: left;
+	margin-left: 1rem;
+	margin-right: 1rem;
+}
+.table{
+	text-align: center;
+	border: 1px solid #e3f0f7;
+}
+.table th{
+	text-align:center;
+	background: #e3f0f7;
+}
+.table tbody tr td{
+	border-top: none !important;
+	color: gray;
+}
+

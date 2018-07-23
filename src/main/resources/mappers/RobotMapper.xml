@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+  
+<mapper namespace="cn.mty.specialhelper.mapper.RobotMapper">
+	
+
+	
+	<!-- /**
+	 /**
+	 * 通过机器人的nike查询机器人的所有信息
+	 * @param nike
+	 * @return 
+	 */
+	List<robot> selectRobotByNike(String nike);-->
+	<select id="selectRobotByNike" resultType="cn.mty.specialhelper.bean.Robot">
+			
+		select 
+			   id,
+               wxno,
+               nike,
+               contact_id as contactId,
+               flock_id as flockId,
+               sex,
+               or_url as orURL,
+               hard_url as hardURL,
+			   created_user as createUser,created_time as createTime,
+			   modified_user as modifiedUser,modified_time as modifiedTime		
+		from 
+		   robot
+		where 
+		   nike=#{nike}
+			
+	</select>
+	
+	<!--  》/**
+	 * 通过Nike查询机器人是否存在
+	 * @param nike
+	 * @return 0就是机器人不存在，大于0就是机器人存在
+	 */
+	Integer selectCountByNike(String nike);-->
+	<select id="selectCountByNike" resultType="java.lang.Integer">
+			
+		select 
+			  count(1)	
+		from 
+		   robot
+		where 
+		   nike=#{nike}
+			
+	</select>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

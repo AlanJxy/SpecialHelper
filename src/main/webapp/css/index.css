@@ -1,0 +1,194 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+ul li {
+	list-style: none;
+}
+
+.p-container {
+	margin: auto;
+	width: 60%;
+	overflow: hidden;
+}
+
+.p-header {
+	padding: 40px 0 25px;
+}
+
+.user {
+	display: inline-table;
+	vertical-align: middle;
+}
+
+.icon-lianxiren {
+	float: left;
+	color: #1ABDE6;
+	width: 25px;
+	height: 25px;
+	border: 1px solid #1ABDE6;
+	border-radius: 13px;
+	text-align: center;
+	vertical-align: middle;
+}
+
+.username {
+	float: left;
+	color: #1ABDE6;
+	margin-left: 5px;
+	margin-top: 2px;
+}
+
+.pull-right a {
+	display: inline-block;
+	vertical-align: middle;
+	height: 30px;
+	line-height: 30px;
+	padding: 0 20px;
+	background: #2ea7e0;
+	color: #fff;
+	border-radius: 13px;
+	margin-left: 15px;
+	/*margin-top: -18px;*/
+	text-decoration: none;
+}
+
+.icon-shouye-copy {
+	color: #1ABDE6;
+}
+
+.part1 {
+	width: 100%;
+}
+
+.p-nav {
+	width: 100%;
+	background: #3f3b3a;
+	height: 45px;
+	line-height: 45px;
+	margin-top: 40px;
+}
+
+.nav-pills {
+	width: 100%;
+	display: flex;
+	justify-content: space-around;
+	height: 45px;
+	line-height: 45px;
+}
+
+.p-nav ul li {
+	float: left;
+}
+
+.p-nav ul li a {
+	color: #fff;
+	padding: 0 15px;
+}
+
+.count {
+	margin-top: 30px;
+	width: 100%;
+}
+
+.count .tmt {
+	margin: 0 auto;
+	width: 80%;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	padding: 5px 0;
+	border: 1px solid #2ea7e0;
+	border-radius: 10px;
+	color: #2ea7e0;
+	text-align: center;
+	/*margin-left: 25%;*/
+	font-weight: 600;
+}
+
+.num_left {
+	float: left;
+	color: #2EA7E0;
+	font-size: 17px;
+}
+
+.num_right {
+	text-align: right;
+	color: darkgray;
+	font-size: 18px;
+}
+
+.btn-group {
+	float: left;
+}
+
+.top_box {
+	height: 50px;
+	width: 100%;
+}
+
+.time_box {
+	margin-top: 9px;
+	float: left;
+	display: flex;
+}
+
+.time_box input {
+	width: 100px;
+	text-align: center;
+}
+
+.btn {
+	background-color: #fff;
+}
+
+.dld {
+	float: left;
+	margin-top: 9px;
+	/*margin-left: 20px;*/
+}
+
+.txt {
+	float: left;
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+.table {
+	text-align: center;
+	border: 1px solid #e3f0f7;
+}
+
+.table th {
+	text-align: center;
+	background: #e3f0f7;
+}
+
+.table tbody tr td {
+	border-top: none !important;
+	color: gray;
+}
+
+@media screen and (max-width: 414px) {
+	body {
+		font-size: 10px !important;
+	}
+	.p-header {
+		padding: 10px 0;
+	}
+	.p-container {
+		width: 100%;
+	}
+	.count .tmt {
+		width: 60%;
+	}
+	.count .num {
+		padding: 0 40px;
+	}
+	.right {
+		width: 100% !important;
+	}
+	.p-nav {
+		margin: 0;
+	}
+}

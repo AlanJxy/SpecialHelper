@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+  
+<mapper namespace="cn.mty.specialhelper.mapper.RoomMapper">
+	
+
+	<!-- 插入room表的数据 
+	void insertUser(Room room);-->
+	
+	<!--      private int roomId;
+	          private String vcRoomNo;
+	          private Date roomCreateTime;
+	          private int nStatus;
+			  private String vcMerchatNo;
+			  private int num;
+			  private String vcChatRoomSerialNo; -->
+	<insert id="insertRoom" parameterType="cn.mty.specialhelper.bean.Room">
+		insert into room (
+						vc_room_no,
+						room_create_time,
+						n_status,
+						vc_merchat_no,
+						num,
+						vc_chatroom_serial_no,
+						created_user,created_time,
+						modified_user,modified_time
+		)values(
+			#{vcRoomNo},
+			#{roomCreateTime},
+			#{nStatus},
+			#{vcMerchatNo},
+			#{num},
+			#{vcChatRoomSerialNo},
+			#{createdUser},#{createdTime},
+			#{modifiedUser},#{modifiedTime}
+		)
+	</insert>
+	<!-- /**
+	 * 根据房间人数小于4的查询并且状态为1未开始
+	 * @return 返回Room对象
+	 */ 
+	 Room selectRoomByNum();-->
+	<select id="selectRoomByNum" resultType="cn.mty.specialhelper.bean.Room">
+			
+		select 
+		       room_id as roomId,
+			   vc_room_no as vcRoomNo,
+			   room_create_time as roomCreateTime,
+			   n_status as nStatus,
+			   vc_merchat_no as vcMerchatNo,
+			   num,
+			   vc_chatroom_serial_no as vcChatRoomSerialNo,
+						
+			  created_user as createUser,created_time as createTime,
+			  modified_user as modifiedUser,modified_time as modifiedTime		
+		from 
+		   room
+		where 
+		   num &lt; 4 and n_status=1
+			
+	</select>
+	
+	
+	<!-- /**
+     * 查询所有房间
+     * @return list集合
+     */
+	List<Room> selectAll(); -->
+	<select id="selectAll" resultType="cn.mty.specialhelper.bean.Room">
+			
+		select 
+			room_id as roomId,room_num as roomNum,room_create_time as roomCreateTime,status,num,
+			created_user as createUser,created_time as createTime,
+			modified_user as modifiedUser,modified_time as modifiedTime		
+		from 
+		   room
+		
+	</select>
+	
+     <!-- /**
+	 * 更新房间状态
+	 * @param room
+	 * @return
+	 */
+	Integer updateRoomStatus(Room room); -->
+	
+	<update id="updateRoomStatus" 
+			parameterType="cn.mty.specialhelper.bean.Room">
+		update 
+		     room
+		set
+		       vc_room_no=#{vcRoomNo},
+			   n_status=#{nStatus},
+			   vc_merchat_no=#{vcMerchatNo},
+			   num=#{num},
+			   vc_chatroom_serial_no=#{vcChatRoomSerialNo},
+		      modified_user=#{modifiedUser},
+		      modified_time=#{modifiedTime}
+
+		where
+			n_status=0 and vc_room_no=#{vcRoomNo}
+		
+	</update>
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

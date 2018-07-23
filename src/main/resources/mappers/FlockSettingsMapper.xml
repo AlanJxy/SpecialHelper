@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+  
+<mapper namespace="cn.mty.specialhelper.mapper.FlockSettingsMapper">
+	
+
+	<!-- 
+	/**
+	 * 添加群设置
+	 * @param fsFlockSettings
+	 */
+	void insertFlockSettings(FlockSettings fsFlockSettings);;-->
+	<insert id="insertFlockSettings" parameterType="cn.mty.specialhelper.bean.FlockSettings">
+		insert into flock_settings (
+			  flock_id,
+              game_type,
+              game_sub_type,
+              game_bipiao,
+              game_count,
+              pay_type,
+              ip_limit,
+              gps_limit,
+              Lianzhuang_add_game_count,
+              must_zi_mo,
+			  created_user,created_time,
+			  modified_user,modified_time
+		)values(
+			#{flockId},#{gameType},
+			#{gameSubType},#{gameBipiao},
+			#{gameCount},#{payType},
+			#{ipLimit},#{gpsLimit},
+			#{lianzhuangAddGameCount},#{mustZiMo},
+			#{createdUser},#{createdTime},
+			#{modifiedUser},#{modifiedTime}
+		)
+	</insert>
+	
+	<!--  /**
+	 * 通过群id查询群的房间设置
+	 * @param flockId
+	 * @return 返回群设置
+	 */
+	FlockSettings selectRoomIdByFlockId(String flockId);-->
+    <select id="selectRoomIdByFlockId" resultType="cn.mty.specialhelper.bean.FlockSettings">
+			
+		select 
+		    id,
+			flock_id as flockId,
+              game_type as gameType,
+              game_sub_type as gameSubType,
+              game_bipiao as gameBipiao,
+              game_count as gameCount,
+              pay_type as payType,
+              ip_limit as ipLimit,
+              gps_limit as gpsLimit,
+              Lianzhuang_add_game_count as lianzhuangAddGameCount,
+              must_zi_mo as mustZiMo,
+			  created_user as createdUser,created_time as createdTime,
+			  modified_user as modifiedUser,modified_time as modifiedTime	
+		from 
+		    flock_settings
+		where 
+		   flock_id=#{flockId}
+			
+	</select>
+	<!-- /**
+	 * 通过flockId查询是否有这个群
+	 * @param flockId
+	 * @return 0代表没有，1表有
+	 */
+	Integer selectCunotByFlockId(String flockId); -->
+	<select id="selectCunotByFlockId" resultType="java.lang.Integer">
+			
+		select 
+		    count(1)
+		from 
+		    flock_settings
+		where 
+		   flock_id=#{flockId}
+			
+	</select>
+	
+	<!-- /**
+	 * 修个群设置
+	 * @param flocksettings 要修改的内容
+	 */
+	void updeteFlockSettings(FlockSettings flocksettings); -->
+	<update id="updeteFlockSettings" 
+			parameterType="cn.mty.specialhelper.bean.FlockSettings">
+		update 
+		     flock_settings
+		set
+			game_type=#{gameType},
+              game_sub_type=#{gameSubType},
+              game_bipiao=#{gameBipiao},
+              game_count=#{gameCount},
+              pay_type=#{payType},
+              ip_limit=#{ipLimit},
+              gps_limit=#{gpsLimit},
+              Lianzhuang_add_game_count=#{lianzhuangAddGameCount},
+              must_zi_mo=#{mustZiMo},
+		      modified_user=#{modifiedUser},
+		      modified_time=#{modifiedTime}
+
+		where
+			flock_id=#{flockId}
+		
+	</update>
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
