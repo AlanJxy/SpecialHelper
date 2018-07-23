@@ -101,7 +101,7 @@ public class Robot {
 	//http://127.0.0.1:8080/SpecialHelper/robot/checkExsist.do?qunno=123&usernick=wzt
 	@RequestMapping("/checkExsist.do")  
     @ResponseBody  
-    public ResponseResult<String> checkUserLogin(String qunno,String usernick) throws IOException{ 
+    public ResponseResult<String> checkUserLogin(HttpRequest request, String qunno,String usernick) throws IOException{
 		ResponseResult<String> rr = new ResponseResult<String>();
 		System.out.println("checkExsist.do");
 		
