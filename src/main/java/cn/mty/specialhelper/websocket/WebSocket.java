@@ -1,6 +1,5 @@
 package cn.mty.specialhelper.websocket;
 
-import cn.mty.specialhelper.bean.HttpRequest;
 import cn.mty.specialhelper.utils.globalVar;
 import org.springframework.stereotype.Component;
 
@@ -20,7 +19,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 @ServerEndpoint("/websocket/{userno}")
 @Component
-public class WebSocket {
+public class WebSocket extends globalVar {
 	//静态变量，用来记录当前在线连接数。应该把它设计成线程安全的。
 	private static int onlineCount = 0;
 	//concurrent包的线程安全Set，用来存放每个客户端对应的MyWebSocket对象。若要实现服务端与单一客户端通信的话，可以使用Map来存放，其中Key可以为用户标识
@@ -46,13 +45,13 @@ public class WebSocket {
 		System.out.println("有新连接加入！当前在线人数为" + getOnlineCount());
 
 		//下面代码作用为调用http接口，发送uin
-		String param1="uin=" + param;
+		/*String param1="uin=" + param;
 
 		System.out.println("WebSocket.java.51: " + globalVar.getHouTaiAddress()+"robot/selectRobot.do");
 		System.out.println("WebSocket.java.52: " + param);
 
 		String s=HttpRequest.sendGet(globalVar.getHouTaiAddress()+"robot/selectRobot.do", param1);
-		System.out.println("WebSocket.java.55" + s);
+		System.out.println("WebSocket.java.55" + s);*/
 	}
 
 	/**

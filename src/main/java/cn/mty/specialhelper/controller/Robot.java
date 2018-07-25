@@ -12,6 +12,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import cn.mty.specialhelper.websocket.WebSocket;
 import javafx.scene.chart.PieChart;
@@ -37,10 +38,9 @@ import javax.websocket.Session;
 
 @Controller
 @RequestMapping("/robot")
-public class Robot extends WebSocket {
+public class Robot extends WebSocket{
 
-	private Wechat wechat;
-	//http://127.0.0.1:8080/SpecialHelper/robot/start.do?arg=123
+	//http://127.0.0.1:8080/robot/botTime.do?uin=1633000544
 
 	@RequestMapping("/botTime.do")
 	@ResponseBody
@@ -73,8 +73,8 @@ public class Robot extends WebSocket {
 
 		String qrPath = "D://itchat4j//login"; // 保存登陆二维码图片的路径，这里需要在本地新建目录
 		IMsgHandlerFace msgHandler = new SimpleHandler(); // 实现IMsgHandlerFace接口的类
-		wechat = new Wechat(msgHandler, qrPath); //【注入】
-		wechat.start(); // 启动服务，会在qrPath下生成一张二维码图片，扫描即可登陆，
+		/*wechat = new Wechat(msgHandler, qrPath); //【注入】
+		wechat.start(); // 启动服务，会在qrPath下生成一张二维码图片，扫描即可登陆，*/
 		//注意，二维码图片如果超过一定时间未扫描会过期，过期时会自动更新，所以你可能需要重新打开图片
 
 		Core core = Core.getInstance();
@@ -142,35 +142,28 @@ public class Robot extends WebSocket {
 		System.out.println("BASE64Decoder加密后的结果为==>" + oldpw);
 
 		//获取 群昵称
-        /*String mQunNick = "";
+        String mQunNick = "";
         List<Flock> list = globalVar.getListFlock();
         for (Flock flocl : list) {
             if (flocl.qunNo.equals(qunno)) {
                 System.out.println(flocl.qunNick);
                 mQunNick = flocl.qunNick;
             }
-        }*/
+        }
 
-		/*String sdata="";
-		if(wechat.getHandler().isExistQunChengYuan(mQunNick,oldpw).equals("1"))//pQunNick, pChengYuanNick))
+		String sdata="";
+		Map<String, Wechat> wechatMap = this.wechatMap;
+		Wechat wechat = wechatMap.get(uin);
+		if(wechatMap.get(uin).getHandler().isExistQunChengYuan(mQunNick,oldpw).equals("1"))//pQunNick, pChengYuanNick))
 		{
 			rr.setState(1);
-			sdata="{\"errcode\":0,\"result\":\"1\"}";
+			/*sdata="{\"errcode\":0,\"result\":\"1\"}";*/
 		}else {
 			rr.setState(0);
-			sdata="{\"errcode\":0,\"result\":\"0\"}";
-		}*/
+			/*sdata="{\"errcode\":0,\"result\":\"0\"}";*/
+		}
 
-		/*//todo 测试用，用完记得删掉*/
-		List<Flock> listf = new ArrayList<Flock>();
-		Flock flock = new Flock();
-		flock.qunNick = "asdasdasdas";
-		flock.qunNo = "213465";
-		flock.qunZhuNick = "weadwda";
-		listf.add(flock);
-
-		this.sendAll(globalVar.gson.toJson(listf), uin);
-		rr.setState(1);
+		/*this.sendAll(globalVar.gson.toJson(listf), uin);*/
 		Date date = new Date();
 		rr.setMessage(String.valueOf(date.getTime()));
 		rr.setData("DataTest");
@@ -180,7 +173,7 @@ public class Robot extends WebSocket {
 	//http://127.0.0.1:8080/SpecialHelper/robot/updateRoomStatus.do?fangno=123
 	@RequestMapping("/updateRoomStatus.do")
 	@ResponseBody
-	public ResponseResult<String> updateRoomStatus(String fangno) throws InterruptedException, Exception, IOException{
+	public ResponseResult<String> updateRoomStatus(String fangno, String uin) throws InterruptedException, Exception, IOException{
 		ResponseResult<String> rr = new ResponseResult<String>();
 		System.out.println("updateRoomStatus.do");
 
@@ -254,7 +247,7 @@ public class Robot extends WebSocket {
 		}else {
 			strSend+="【缺"+mQueJiRen+"人】\n";
 		}
-		wechat.getHandler().sendJieSuanInfo (strSend,mQunNick,"","");
+		globalVar.wechatMap.get(uin).getHandler().sendJieSuanInfo (strSend,mQunNick,"","");
 
 		String sdata="{\"errcode\":0,\"result\":1}";
 		rr.setData(sdata);
@@ -265,7 +258,7 @@ public class Robot extends WebSocket {
 	//http://127.0.0.1:8080/SpecialHelper/robot/jiesuan.do?fangno=123
 	@RequestMapping("/jiesuan.do")
 	@ResponseBody
-	public ResponseResult<String> jiesuan(String fangno) throws Exception{
+	public ResponseResult<String> jiesuan(String fangno, String uin) throws Exception{
 		ResponseResult<String> rr = new ResponseResult<String>();
 		System.out.println("jiesuan.do");
 
@@ -378,7 +371,7 @@ public class Robot extends WebSocket {
 //		String picPath="D:\\itchat4j\\pic\\"+nowTime+".jpg";
 //		getErWeiMaPic(picPath);
 		String picPath="D:\\itchat4j\\pic\\1111.jpg";
-		wechat.getHandler().sendJieSuanInfo (strSend,"哈尔滨麻将1群",picPath,strDaYingJia);
+		globalVar.wechatMap.get(uin).getHandler().sendJieSuanInfo (strSend,"哈尔滨麻将1群",picPath,strDaYingJia);
 
 
 		String sdata="{\"errcode\":0,\"result\":1}";
