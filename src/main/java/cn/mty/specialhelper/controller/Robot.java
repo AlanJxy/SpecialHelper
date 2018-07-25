@@ -9,9 +9,12 @@ import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import cn.mty.specialhelper.websocket.WebSocket;
+import javafx.scene.chart.PieChart;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -28,15 +31,40 @@ import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import sun.misc.BASE64Decoder;
 
-
+import javax.servlet.http.HttpServletRequest;
+import javax.websocket.Session;
 
 
 @Controller
 @RequestMapping("/robot")
-public class Robot {
+public class Robot extends WebSocket {
 	
 	private Wechat wechat;
 	//http://127.0.0.1:8080/SpecialHelper/robot/start.do?arg=123
+
+	@RequestMapping("/botTime.do")
+	@ResponseBody
+	public ResponseResult<Void> getBotTime(String uin){
+		ResponseResult<Void> rr = new ResponseResult();
+		Date date = new Date();
+
+		/*//todo 测试用，用完记得删掉*/
+		List<Flock> listf = new ArrayList<Flock>();
+		Flock flock = new Flock();
+		flock.qunNick = "asdasdasdas";
+		flock.qunNo = "213465";
+		flock.qunZhuNick = String.valueOf(date.getTime());
+		listf.add(flock);
+
+		boolean botType = this.sendAll(globalVar.gson.toJson(listf), uin);
+
+
+		rr.setMessage(String.valueOf(date.getTime()));
+		rr.setState(botType ? 1 : 0);
+		return rr;
+	}
+
+
 	@RequestMapping("/start.do")  
     @ResponseBody  
     public ResponseResult<Void> updeteRoom(String kouling){ 
@@ -50,15 +78,15 @@ public class Robot {
 						//注意，二维码图片如果超过一定时间未扫描会过期，过期时会自动更新，所以你可能需要重新打开图片
 		
 		Core core = Core.getInstance();
-		Integer mLogerUid=(Integer)core.getUserSelf().get("Uin");
+		String mLogerUid=core.getUserSelf().get("Uin").toString();
 		globalVar.mUin=mLogerUid;
 		
-		String param="uid="+globalVar.mUin;
+		String param="uin="+globalVar.mUin;
 		
-		System.out.println(globalVar.getHouTaiAddress()+"robot/selectRobot.do");
+		System.out.println(globalVar.getHouTaiAddress2()+"robot/selectRobot.do");
     	System.out.println(param);
     	
-    	String s=HttpRequest.sendPost(globalVar.getHouTaiAddress()+"robot/selectRobot.do", param);
+    	String s=HttpRequest.sendGet(globalVar.getHouTaiAddress()+"robot/selectRobot.do", param);
         System.out.println(s);
 		
         JSONObject json = JSONObject.fromObject(s);
@@ -98,31 +126,32 @@ public class Robot {
 //    System.out.println(oldpw);
 //    //System.out.println("");
     
-	//http://127.0.0.1:8080/SpecialHelper/robot/checkExsist.do?qunno=123&usernick=wzt
+	//http://127.0.0.1:8080/robot/checkExsist.do?qunno=123&usernick=wzt&uin=1633000544
 	@RequestMapping("/checkExsist.do")  
-    @ResponseBody  
-    public ResponseResult<String> checkUserLogin(HttpRequest request, String qunno,String usernick) throws IOException{
+    @ResponseBody
+	public ResponseResult<String> checkUserLogin(String qunno, String usernick, String uin) throws IOException {
 		ResponseResult<String> rr = new ResponseResult<String>();
 		System.out.println("checkExsist.do");
-		
+
 		System.out.println(qunno);
 		System.out.println(usernick);
-		
+		System.out.println(uin);
+
 		BASE64Decoder decoder = new BASE64Decoder();
-		String oldpw = new String(decoder.decodeBuffer(usernick),"utf-8");
-	    System.out.println(oldpw);
-		
-	    //获取 群昵称
-		String mQunNick="";
-		List<Flock> list=globalVar.getListFlock();
-		for(Flock flocl : list) {
-			if(flocl.qunNo.equals(qunno)) {
-				System.out.println(flocl.qunNick);
-				mQunNick=flocl.qunNick;
-			}
-		}
-		
-		String sdata="";
+		String oldpw = new String(decoder.decodeBuffer(usernick), "utf-8");
+		System.out.println("BASE64Decoder加密后的结果为==>" + oldpw);
+
+		//获取 群昵称
+        /*String mQunNick = "";
+        List<Flock> list = globalVar.getListFlock();
+        for (Flock flocl : list) {
+            if (flocl.qunNo.equals(qunno)) {
+                System.out.println(flocl.qunNick);
+                mQunNick = flocl.qunNick;
+            }
+        }*/
+
+		/*String sdata="";
 		if(wechat.getHandler().isExistQunChengYuan(mQunNick,oldpw).equals("1"))//pQunNick, pChengYuanNick))
 		{
 			rr.setState(1);
@@ -130,12 +159,23 @@ public class Robot {
 		}else {
 			rr.setState(0);
 			sdata="{\"errcode\":0,\"result\":\"0\"}";
-		}
+		}*/
+
+		/*//todo 测试用，用完记得删掉*/
+		List<Flock> listf = new ArrayList<Flock>();
+		Flock flock = new Flock();
+		flock.qunNick = "asdasdasdas";
+		flock.qunNo = "213465";
+		flock.qunZhuNick = "weadwda";
+		listf.add(flock);
+
+		this.sendAll(globalVar.gson.toJson(listf), uin);
 		rr.setState(1);
-		rr.setData(sdata);
-		rr.setMessage("验证成功！");
+		Date date = new Date();
+		rr.setMessage(String.valueOf(date.getTime()));
+		rr.setData("DataTest");
 		return rr;
-		
+
 	}
 	//http://127.0.0.1:8080/SpecialHelper/robot/updateRoomStatus.do?fangno=123
 	@RequestMapping("/updateRoomStatus.do")  

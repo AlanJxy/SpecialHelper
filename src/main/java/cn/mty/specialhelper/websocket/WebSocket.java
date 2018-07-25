@@ -1,6 +1,7 @@
 package cn.mty.specialhelper.websocket;
 
-
+import cn.mty.specialhelper.bean.HttpRequest;
+import cn.mty.specialhelper.utils.globalVar;
 import org.springframework.stereotype.Component;
 
 import javax.websocket.*;
@@ -25,9 +26,9 @@ public class WebSocket {
 	//concurrent包的线程安全Set，用来存放每个客户端对应的MyWebSocket对象。若要实现服务端与单一客户端通信的话，可以使用Map来存放，其中Key可以为用户标识
 	private static ConcurrentHashMap<String, WebSocket> webSocketSet = new ConcurrentHashMap<String, WebSocket>();
 	//与某个客户端的连接会话，需要通过它来给客户端发送数据
-	private Session session;
+	Session session;
 	//当前发消息的人员编号
-	private String userno = "";
+	String userno = "";
 
 	/**
 	 * 连接建立成功调用的方法
@@ -36,13 +37,22 @@ public class WebSocket {
 	 */
 	@OnOpen
 	public void onOpen(@PathParam(value = "userno") String param, Session session) {
-		System.out.println(param);
+		System.out.println("连接的人员编号为：" + param);
 		userno = param;//接收到发送消息的人员编号
 		/*userno.equals("")? param : "|"+param;*/
 		this.session = session;
 		webSocketSet.put(param, this);//加入map中
 		addOnlineCount();           //在线数加1
 		System.out.println("有新连接加入！当前在线人数为" + getOnlineCount());
+
+		//下面代码作用为调用http接口，发送uin
+		String param1="uin=" + param;
+
+		System.out.println("WebSocket.java.51: " + globalVar.getHouTaiAddress2()+"robot/selectRobot.do");
+		System.out.println("WebSocket.java.52: " + param);
+
+		String s=HttpRequest.sendGet(globalVar.getHouTaiAddress2()+"robot/selectRobot.do", param1);
+		System.out.println("WebSocket.java.55" + s);
 	}
 
 	/**
@@ -66,27 +76,21 @@ public class WebSocket {
 	@OnMessage
 	public void onMessage(String message, Session session) {
 		System.out.println("来自客户端的消息:" + message);
-//        session.get
-		//群发消息
-		/*if (1 < 2) {
-			sendAll(message);
-		} else {*/
-			//给指定的人发消息
-			sendToUser(message);
-		/*}*/
+		sendAll(message, this.userno);
 	}
 
 	/**
 	 * 给指定的人发送消息
 	 * @param message
 	 */
-	private void sendToUser(String message) {
+	private void sendToUser(String message, Session session) {
 		String sendUserno = userno;
 		String sendMessage = message.split("[|]")[0];
 		String now = getNowTime();
 		try {
 			if (webSocketSet.get(sendUserno) != null) {
-				webSocketSet.get(sendUserno).sendMessage(now + "用户" + userno + "发来消息：" + " <br/> " + sendMessage);
+				this.session = session;
+				this.sendMessage(now + "用户" + userno + "发来消息：" + sendMessage, session);
 			} else {
 				System.out.println("当前用户不在线");
 			}
@@ -99,21 +103,24 @@ public class WebSocket {
 	 * 给所有人发消息
 	 * @param message
 	 */
-	private void sendAll(String message) {
+	public boolean sendAll(String message, String uin) {
 		String now = getNowTime();
 		String sendMessage = message.split("[|]")[0];
 		//遍历HashMap
 		for (String key : webSocketSet.keySet()) {
 			try {
 				//判断接收用户是否是当前发消息的用户
-				if (!userno.equals(key)) {
-					webSocketSet.get(key).sendMessage(now + "用户" + userno + "发来消息：" + " <br/> " + sendMessage);
+				if (uin.equals(key)) {
+					Session session1 = webSocketSet.get(key).session;
+					webSocketSet.get(key).sendMessage(now + "用户" + uin + "发来消息：" + " <br/> " + sendMessage, webSocketSet.get(key).session);
 					System.out.println("key = " + key);
+					return true;
 				}
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
+		return false;
 	}
 
 
@@ -146,8 +153,8 @@ public class WebSocket {
 	 * @param message
 	 * @throws IOException
 	 */
-	public void sendMessage(String message) throws IOException {
-		this.session.getBasicRemote().sendText(message);
+	public void sendMessage(String message, Session session) throws IOException {
+		session.getBasicRemote().sendText(message);
 		//this.session.getAsyncRemote().sendText(message);
 	}
 
