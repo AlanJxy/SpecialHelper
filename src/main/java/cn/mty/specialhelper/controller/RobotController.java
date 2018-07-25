@@ -20,32 +20,32 @@ import cn.mty.specialhelper.service.ex.NikeNotFoundException;
 @RequestMapping
 public class RobotController {
 	@Autowired
-	 private IRobotService robotService;
-	
-	//»úÆ÷ÈËµÇÂ¼²éÑ¯·µ»Ø»úÆ÷ÈËµÄ¹ÜÀíĞÅÏ¢
-	@RequestMapping("/selectRobot.do")  
-    @ResponseBody  
-    public ResponseResult<List<Robot>> selectRobot(String nike){ 
+	private IRobotService robotService;
+
+	//æœºå™¨äººç™»å½•æŸ¥è¯¢è¿”å›æœºå™¨äººçš„ç®¡ç†ä¿¡æ¯
+	@RequestMapping("/selectRobot.do")
+	@ResponseBody
+	public ResponseResult<List<Robot>> selectRobot(String nike){
 		System.out.println("robot");
 		System.out.println(nike);
-		
+
 		ResponseResult<List<Robot>> rr = new ResponseResult<List<Robot>>();
-		
+
 		try {
 			List<Robot> list = robotService.selectRobotByNike(nike);
-			
-			
+
+
 			rr.setState(0);
-			rr.setMessage("ÕÒµÄ»úÆ÷ÈË");
+			rr.setMessage("æ‰¾çš„æœºå™¨äºº");
 			rr.setData(list);
-			
+
 		} catch (NikeNotFoundException e) {
 			rr.setState(-1);
 			rr.setMessage(e.getMessage());
 		}
-		
-	
-     return rr; 
-    }  
+
+
+		return rr;
+	}
 
 }

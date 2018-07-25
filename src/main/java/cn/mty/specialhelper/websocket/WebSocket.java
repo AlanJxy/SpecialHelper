@@ -48,10 +48,10 @@ public class WebSocket {
 		//下面代码作用为调用http接口，发送uin
 		String param1="uin=" + param;
 
-		System.out.println("WebSocket.java.51: " + globalVar.getHouTaiAddress2()+"robot/selectRobot.do");
+		System.out.println("WebSocket.java.51: " + globalVar.getHouTaiAddress()+"robot/selectRobot.do");
 		System.out.println("WebSocket.java.52: " + param);
 
-		String s=HttpRequest.sendGet(globalVar.getHouTaiAddress2()+"robot/selectRobot.do", param1);
+		String s=HttpRequest.sendGet(globalVar.getHouTaiAddress()+"robot/selectRobot.do", param1);
 		System.out.println("WebSocket.java.55" + s);
 	}
 

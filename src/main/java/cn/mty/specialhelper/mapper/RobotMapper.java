@@ -7,20 +7,20 @@ import cn.mty.specialhelper.bean.Robot;
 
 
 public interface RobotMapper {
-	
+
 	/**
-	 * Í¨¹ı»úÆ÷ÈËµÄnike²éÑ¯»úÆ÷ÈËµÄËùÓĞĞÅÏ¢
+	 * é€šè¿‡æœºå™¨äººçš„nikeæŸ¥è¯¢æœºå™¨äººçš„æ‰€æœ‰ä¿¡æ¯
 	 * @param nike
-	 * @return 
+	 * @return
 	 */
 	List<Robot> selectRobotByNike(String nike);
 	/**
-	 * Í¨¹ıNike²éÑ¯»úÆ÷ÈËÊÇ·ñ´æÔÚ
+	 * é€šè¿‡NikeæŸ¥è¯¢æœºå™¨äººæ˜¯å¦å­˜åœ¨
 	 * @param nike
-	 * @return 0¾ÍÊÇ»úÆ÷ÈË²»´æÔÚ£¬´óÓÚ0¾ÍÊÇ»úÆ÷ÈË´æÔÚ
+	 * @return 0å°±æ˜¯æœºå™¨äººä¸å­˜åœ¨ï¼Œå¤§äº0å°±æ˜¯æœºå™¨äººå­˜åœ¨
 	 */
 	Integer selectCountByNike(String nike);
-	
-	
+
+
 
 }

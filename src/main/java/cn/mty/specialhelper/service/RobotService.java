@@ -13,19 +13,19 @@ import cn.mty.specialhelper.service.ex.NikeNotFoundException;
 
 @Service
 public class RobotService implements IRobotService {
-    @Autowired 
+	@Autowired
 	private RobotMapper robotMapper;
-    
+
 	public List<Robot> selectRobotByNike(String nike) {
-		
+
 		Integer count = robotMapper.selectCountByNike(nike);
 		List<Robot> list  = new ArrayList<Robot>();
 		if(count==0) {
-			throw new NikeNotFoundException("此机器人已不存在");
+			throw new NikeNotFoundException("嘶巡");
 		}else {
-			 list = robotMapper.selectRobotByNike(nike);
+			list = robotMapper.selectRobotByNike(nike);
 		}
-		
+
 		return list;
 	}
 

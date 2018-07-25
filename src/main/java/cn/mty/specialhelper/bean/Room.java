@@ -6,17 +6,17 @@ import java.util.Date;
 public class Room implements Serializable{
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 2918688129018249543L;
-	
+
 //	  room_id int(11) auto_increment primary key,
 //    vc_room_no varchar(10),
 //    room_create_time  timestamp,
 //    n_status int(1),
-//    vc_merchat_no varchar(10),£®…Ãº“±‡∫≈£©
+//    vc_merchat_no varchar(10),Ãº“±≈£
 //    num int(1),
-//    vc_chatroom_serial_no varchar(64),»∫±‡∫≈
+//    vc_chatroom_serial_no varchar(64),»∫
 //    created_user  varchar(50),
 //    created_time  date,
 //    modified_user varchar(50),
@@ -30,12 +30,12 @@ public class Room implements Serializable{
 	private String vcMerchatNo;
 	private int num;
 	private String vcChatRoomSerialNo;
-		
+
 	private String createdUser;
 	private Date createdTime;
 	private String modifiedUser;
 	private Date modifiedTime;
-	
+
 
 	public Room() {
 		super();
@@ -44,7 +44,7 @@ public class Room implements Serializable{
 
 
 	public Room(int roomId, String vcRoomNo, Date roomCreateTime, int nStatus, String vcMerchatNo, int num,
-			String vcChatRoomSerialNo, String createdUser, Date createdTime, String modifiedUser, Date modifiedTime) {
+				String vcChatRoomSerialNo, String createdUser, Date createdTime, String modifiedUser, Date modifiedTime) {
 		super();
 		this.roomId = roomId;
 		this.vcRoomNo = vcRoomNo;
@@ -260,7 +260,7 @@ public class Room implements Serializable{
 			return false;
 		return true;
 	}
-	
-	
-	
+
+
+
 }

@@ -12,126 +12,126 @@ import java.util.List;
 import java.util.Map;
 
 public class HttpRequest {
-	
 
-	
-	    /**
-	     * ÏòÖ¸¶¨URL·¢ËÍGET·½·¨µÄÇëÇó
-	     * 
-	     * @param url
-	     *            ·¢ËÍÇëÇóµÄURL
-	     * @param param
-	     *            ÇëÇó²ÎÊı£¬ÇëÇó²ÎÊıÓ¦¸ÃÊÇ name1=value1&name2=value2 µÄĞÎÊ½¡£
-	     * @return URL Ëù´ú±íÔ¶³Ì×ÊÔ´µÄÏìÓ¦½á¹û
-	     */
-	    public static String sendGet(String url, String param) {
-	        String result = "";
-	        BufferedReader in = null;
-	        try {
-	            String urlNameString = url + "?" + param;
-	            URL realUrl = new URL(urlNameString);
-	            // ´ò¿ªºÍURLÖ®¼äµÄÁ¬½Ó
-	            URLConnection connection = realUrl.openConnection();
-	            // ÉèÖÃÍ¨ÓÃµÄÇëÇóÊôĞÔ
-	            connection.setRequestProperty("accept", "*/*");
-	            connection.setRequestProperty("connection", "Keep-Alive");
-	            connection.setRequestProperty("user-agent",
-	                    "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)");
-	            // ½¨Á¢Êµ¼ÊµÄÁ¬½Ó
-	            connection.connect();
-	            // »ñÈ¡ËùÓĞÏìÓ¦Í·×Ö¶Î
-	            Map<String, List<String>> map = connection.getHeaderFields();
-	            // ±éÀúËùÓĞµÄÏìÓ¦Í·×Ö¶Î
-	            for (String key : map.keySet()) {
-	                System.out.println(key + "--->" + map.get(key));
-	            }
-	            // ¶¨Òå BufferedReaderÊäÈëÁ÷À´¶ÁÈ¡URLµÄÏìÓ¦
-	            in = new BufferedReader(new InputStreamReader(
-	                    connection.getInputStream()));
-	            String line;
-	            while ((line = in.readLine()) != null) {
-	                result += line;
-	            }
-	        } catch (Exception e) {
-	            System.out.println("·¢ËÍGETÇëÇó³öÏÖÒì³££¡" + e);
-	            e.printStackTrace();
-	        }
-	        // Ê¹ÓÃfinally¿éÀ´¹Ø±ÕÊäÈëÁ÷
-	        finally {
-	            try {
-	                if (in != null) {
-	                    in.close();
-	                }
-	            } catch (Exception e2) {
-	                e2.printStackTrace();
-	            }
-	        }
-	        return result;
-	    }
 
-	    /**
-	     * ÏòÖ¸¶¨ URL ·¢ËÍPOST·½·¨µÄÇëÇó
-	     * 
-	     * @param url
-	     *            ·¢ËÍÇëÇóµÄ URL
-	     * @param param
-	     *            ÇëÇó²ÎÊı£¬ÇëÇó²ÎÊıÓ¦¸ÃÊÇ name1=value1&name2=value2 µÄĞÎÊ½¡£
-	     * @return Ëù´ú±íÔ¶³Ì×ÊÔ´µÄÏìÓ¦½á¹û
-	     */
-	    public static String sendPost(String url, String param) {
-	        PrintWriter out = null;
-	        BufferedReader in = null;
-	        String result = "";
-	        try {
-	            URL realUrl = new URL(url);
-	            // ´ò¿ªºÍURLÖ®¼äµÄÁ¬½Ó
-	            //URLConnection conn = realUrl.openConnection();
-	            HttpURLConnection conn = (HttpURLConnection) realUrl.openConnection();
-	            // ÉèÖÃÍ¨ÓÃµÄÇëÇóÊôĞÔ
-	            conn.setRequestProperty("accept", "*/*");
-	            conn.setRequestProperty("connection", "Keep-Alive");
-	            conn.setRequestProperty("user-agent",
-	                    "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)");
-	            // ·¢ËÍPOSTÇëÇó±ØĞëÉèÖÃÈçÏÂÁ½ĞĞ
-	            conn.setDoOutput(true);
-	            conn.setDoInput(true);
-	            // »ñÈ¡URLConnection¶ÔÏó¶ÔÓ¦µÄÊä³öÁ÷
-	            OutputStreamWriter out1 = new OutputStreamWriter(conn  
-	                    .getOutputStream(), "UTF-8");
-	            out = new PrintWriter(out1);
-	             
-	            // ·¢ËÍÇëÇó²ÎÊı
-	            out.print(param);
-	            // flushÊä³öÁ÷µÄ»º³å
-	            out.flush();
-	            // ¶¨ÒåBufferedReaderÊäÈëÁ÷À´¶ÁÈ¡URLµÄÏìÓ¦
-	            in = new BufferedReader(new InputStreamReader(conn.getInputStream(),"utf-8"));
-	            String line;
-	            while ((line = in.readLine()) != null) {
-	            	 //line = new String(line.getBytes(),"UTF-8");
-	                result += line;
-	            }
-	            //result= new String(result.getBytes("ioc"),"utf-8");
-	        } catch (Exception e) {
-	            System.out.println("·¢ËÍ POST ÇëÇó³öÏÖÒì³££¡"+e);
-	            e.printStackTrace();
-	        }
-	        //Ê¹ÓÃfinally¿éÀ´¹Ø±ÕÊä³öÁ÷¡¢ÊäÈëÁ÷
-	        finally{
-	            try{
-	                if(out!=null){
-	                    out.close();
-	                }
-	                if(in!=null){
-	                    in.close();
-	                }
-	            }
-	            catch(IOException ex){
-	                ex.printStackTrace();
-	            }
-	        }
-	        return result;
-	    }    
+
+	/**
+	 * å‘æŒ‡å®šURLå‘é€GETæ–¹æ³•çš„è¯·æ±‚
+	 *
+	 * @param url
+	 *            å‘é€è¯·æ±‚çš„URL
+	 * @param param
+	 *            è¯·æ±‚å‚æ•°ï¼Œè¯·æ±‚å‚æ•°åº”è¯¥æ˜¯ name1=value1&name2=value2 çš„å½¢å¼ã€‚
+	 * @return URL æ‰€ä»£è¡¨è¿œç¨‹èµ„æºçš„å“åº”ç»“æœ
+	 */
+	public static String sendGet(String url, String param) {
+		String result = "";
+		BufferedReader in = null;
+		try {
+			String urlNameString = url + "?" + param;
+			URL realUrl = new URL(urlNameString);
+			// æ‰“å¼€å’ŒURLä¹‹é—´çš„è¿æ¥
+			URLConnection connection = realUrl.openConnection();
+			// è®¾ç½®é€šç”¨çš„è¯·æ±‚å±æ€§
+			connection.setRequestProperty("accept", "*/*");
+			connection.setRequestProperty("connection", "Keep-Alive");
+			connection.setRequestProperty("user-agent",
+					"Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)");
+			// å»ºç«‹å®é™…çš„è¿æ¥
+			connection.connect();
+			// è·å–æ‰€æœ‰å“åº”å¤´å­—æ®µ
+			Map<String, List<String>> map = connection.getHeaderFields();
+			// éå†æ‰€æœ‰çš„å“åº”å¤´å­—æ®µ
+			for (String key : map.keySet()) {
+				System.out.println(key + "--->" + map.get(key));
+			}
+			// å®šä¹‰ BufferedReaderè¾“å…¥æµæ¥è¯»å–URLçš„å“åº”
+			in = new BufferedReader(new InputStreamReader(
+					connection.getInputStream()));
+			String line;
+			while ((line = in.readLine()) != null) {
+				result += line;
+			}
+		} catch (Exception e) {
+			System.out.println("å‘é€GETè¯·æ±‚å‡ºç°å¼‚å¸¸ï¼" + e);
+			e.printStackTrace();
+		}
+		// ä½¿ç”¨finallyå—æ¥å…³é—­è¾“å…¥æµ
+		finally {
+			try {
+				if (in != null) {
+					in.close();
+				}
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return result;
+	}
+
+	/**
+	 * å‘æŒ‡å®š URL å‘é€POSTæ–¹æ³•çš„è¯·æ±‚
+	 *
+	 * @param url
+	 *            å‘é€è¯·æ±‚çš„ URL
+	 * @param param
+	 *            è¯·æ±‚å‚æ•°ï¼Œè¯·æ±‚å‚æ•°åº”è¯¥æ˜¯ name1=value1&name2=value2 çš„å½¢å¼ã€‚
+	 * @return æ‰€ä»£è¡¨è¿œç¨‹èµ„æºçš„å“åº”ç»“æœ
+	 */
+	public static String sendPost(String url, String param) {
+		PrintWriter out = null;
+		BufferedReader in = null;
+		String result = "";
+		try {
+			URL realUrl = new URL(url);
+			// æ‰“å¼€å’ŒURLä¹‹é—´çš„è¿æ¥
+			//URLConnection conn = realUrl.openConnection();
+			HttpURLConnection conn = (HttpURLConnection) realUrl.openConnection();
+			// è®¾ç½®é€šç”¨çš„è¯·æ±‚å±æ€§
+			conn.setRequestProperty("accept", "*/*");
+			conn.setRequestProperty("connection", "Keep-Alive");
+			conn.setRequestProperty("user-agent",
+					"Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)");
+			// å‘é€POSTè¯·æ±‚å¿…é¡»è®¾ç½®å¦‚ä¸‹ä¸¤è¡Œ
+			conn.setDoOutput(true);
+			conn.setDoInput(true);
+			// è·å–URLConnectionå¯¹è±¡å¯¹åº”çš„è¾“å‡ºæµ
+			OutputStreamWriter out1 = new OutputStreamWriter(conn
+					.getOutputStream(), "UTF-8");
+			out = new PrintWriter(out1);
+
+			// å‘é€è¯·æ±‚å‚æ•°
+			out.print(param);
+			// flushè¾“å‡ºæµçš„ç¼“å†²
+			out.flush();
+			// å®šä¹‰BufferedReaderè¾“å…¥æµæ¥è¯»å–URLçš„å“åº”
+			in = new BufferedReader(new InputStreamReader(conn.getInputStream(),"utf-8"));
+			String line;
+			while ((line = in.readLine()) != null) {
+				//line = new String(line.getBytes(),"UTF-8");
+				result += line;
+			}
+			//result= new String(result.getBytes("ioc"),"utf-8");
+		} catch (Exception e) {
+			System.out.println("å‘é€ POST è¯·æ±‚å‡ºç°å¼‚å¸¸ï¼"+e);
+			e.printStackTrace();
+		}
+		//ä½¿ç”¨finallyå—æ¥å…³é—­è¾“å‡ºæµã€è¾“å…¥æµ
+		finally{
+			try{
+				if(out!=null){
+					out.close();
+				}
+				if(in!=null){
+					in.close();
+				}
+			}
+			catch(IOException ex){
+				ex.printStackTrace();
+			}
+		}
+		return result;
+	}
 
 
 }

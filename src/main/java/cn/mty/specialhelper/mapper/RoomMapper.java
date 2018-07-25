@@ -8,29 +8,29 @@ import cn.mty.specialhelper.bean.Room;
 
 public interface RoomMapper {
 	/**
-	 * ²åÈëÊı¾İ
+	 * æ’å…¥æ•°æ®
 	 * @param Room
 	 */
 	void insertRoom(Room room);
 	/**
-	 * ¸ù¾İ·¿¼äÈËÊıĞ¡ÓÚ4µÄ²éÑ¯
-	 * @return ·µ»ØRoom¶ÔÏó
+	 * æ ¹æ®æˆ¿é—´äººæ•°å°äº4çš„æŸ¥è¯¢
+	 * @return è¿”å›Roomå¯¹è±¡
 	 */
 	Room selectRoomByNum();
-	
-	
-    /**
-     * ²éÑ¯ËùÓĞ·¿¼ä
-     * @return list¼¯ºÏ
-     */
-	List<Room> selectAll();
-	
+
+
 	/**
-	 * ¸üĞÂ·¿¼ä×´Ì¬
+	 * æŸ¥è¯¢æ‰€æœ‰æˆ¿é—´
+	 * @return listé›†åˆ
+	 */
+	List<Room> selectAll();
+
+	/**
+	 * æ›´æ–°æˆ¿é—´çŠ¶æ€
 	 * @param room
 	 * @return
 	 */
 	Integer updateRoomStatus(Room room);
-	
-	
+
+
 }

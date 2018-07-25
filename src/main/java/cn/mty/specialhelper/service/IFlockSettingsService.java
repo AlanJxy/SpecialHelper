@@ -4,17 +4,17 @@ import cn.mty.specialhelper.bean.FlockSettings;
 
 public interface IFlockSettingsService {
 	/**
-	 * Ìí¼ÓÈºÉèÖÃ
+	 * æ·»åŠ ç¾¤è®¾ç½®
 	 * @param fsFlockSettings
 	 */
 	void insertFlockSettings(FlockSettings FlockSettings);
 	/**
-	 * Í¨¹ıÈºid²éÑ¯ÈºµÄ·¿¼äÉèÖÃ
+	 * é€šè¿‡ç¾¤idæŸ¥è¯¢ç¾¤çš„æˆ¿é—´è®¾ç½®
 	 * @param flockId
-	 * @return ·µ»ØÈºÉèÖÃ
+	 * @return è¿”å›ç¾¤è®¾ç½®
 	 */
 	FlockSettings selectRoomIdByFlockId(String flockId);
 
-	
-	
+
+
 }

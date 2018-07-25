@@ -6,11 +6,11 @@ import cn.mty.specialhelper.bean.Robot;
 
 public interface IRobotService {
 	/**
-	 * Í¨¹ı»úÆ÷ÈËµÄnike²éÑ¯»úÆ÷ÈËµÄËùÓĞĞÅÏ¢
+	 * é€šè¿‡æœºå™¨äººçš„nikeæŸ¥è¯¢æœºå™¨äººçš„æ‰€æœ‰ä¿¡æ¯
 	 * @param nike
-	 * @return 
+	 * @return
 	 */
 	List<Robot> selectRobotByNike(String nike);
-	
+
 
 }

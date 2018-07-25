@@ -21,16 +21,16 @@ import cn.mty.specialhelper.service.FlockSettingsService;
 public class FlockSettintgsController {
 	@Autowired
 	private FlockSettingsService flockSettingsService;
-	//Ïò·¿¼äÀïÃæ´æ»òĞŞ¸ÄÓÎÏ·ÅäÖÃ
+	//å‘æˆ¿é—´é‡Œé¢å­˜æˆ–ä¿®æ”¹æ¸¸æˆé…ç½®
 	@RequestMapping("/flockSettings.do")
 	@ResponseBody
 	public JSONPObject insertFlockSettings( String callbackparam,FlockSettings flockSettings){
-		
-		
+
+
 //		String[] str = request.getParameterValues("ipLimit");
-//		
+//
 //		for(int i= 0;i<str.length;i++) {
-//			
+//
 //				if(Integer.parseInt(str[i])==1){
 //					flockSettings.setIpLimit(1);
 //				}else if(Integer.parseInt(str[i])==2) {
@@ -41,45 +41,45 @@ public class FlockSettintgsController {
 //					flockSettings.setMustZiMo(1);
 //				}
 //		}
-		
+
 		System.out.println(flockSettings);
-		System.out.println("±£´æ");
-		
+		System.out.println("ä¿å­˜");
+
 		ResponseResult<Void> rr = new ResponseResult<Void>();
-		
+
 		System.out.println(flockSettings);
 		//flockSettings.setFlockId("123456");
 		flockSettings.setGameBipiao(-1);
-		
+
 		flockSettingsService.insertFlockSettings(flockSettings);
 		rr.setState(1);
-		rr.setMessage("³É¹¦");
-		
+		rr.setMessage("æˆåŠŸ");
+
 		return new JSONPObject(callbackparam, rr);
 	}
-	
-	//ÇëÇó·µ»ØÈºµÄÍæ·¨ÉèÖÃ
+
+	//è¯·æ±‚è¿”å›ç¾¤çš„ç©æ³•è®¾ç½®
 	@RequestMapping("/infoflockSettings.do")
 	@ResponseBody
 	public JSONPObject infoFlockSettings( String callbackparam,String flockId){
 		if(flockId==null||flockId=="") {
 			return null;
-			
+
 		}
 		System.out.println("infoflockSettings.do");
 		ResponseResult<FlockSettings> rr = new ResponseResult<FlockSettings>();
-		
+
 		FlockSettings flockSettings = flockSettingsService.selectRoomIdByFlockId(flockId);
 		rr.setState(1);
-		rr.setMessage("haha³É¹¦");
+		rr.setMessage("hahaæˆåŠŸ");
 		rr.setData(flockSettings);
-		
+
 		return new JSONPObject(callbackparam, rr);
 	}
-	
-	
-	//½«Íæ·¨ÉèÖÃµÄ¶àÑ¡¿òµÄÊı¾İ±éÀú¸³Öµ
-	
-	
-	
+
+
+	//å°†ç©æ³•è®¾ç½®çš„å¤šé€‰æ¡†çš„æ•°æ®éå†èµ‹å€¼
+
+
+
 }

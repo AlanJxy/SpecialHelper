@@ -8,24 +8,19 @@ import org.apache.ibatis.builder.StaticSqlSource;
 import org.aspectj.weaver.patterns.ThisOrTargetAnnotationPointcut;
 
 public class globalVar {
-	//Õâ¸ö²»ĞĞ°¡£¬  ¶à¿ªºó¾Í²»ĞĞÁË
+	//è¿™ä¸ªä¸è¡Œå•Šï¼Œ  å¤šå¼€åå°±ä¸è¡Œäº†
 	public static String mUin;
 
 	public static Gson gson = new Gson();
-	
-	
-	private static String _houTaiAddress ="http://192.168.43.145:8080/SpecialHelper/";
-	private static String _houTaiAddress2="http://192.168.58.221:8080/SpecialHelper/";
+
+
+	private static String _houTaiAddress ="http://192.168.58.221:8080/SpecialHelper/";
 	private static List<Flock> listFlock=new ArrayList<Flock>();
-	
+
 	public static String getHouTaiAddress() {
 		return globalVar._houTaiAddress;
 	}
-	
-	public static String getHouTaiAddress2() {
-		return globalVar._houTaiAddress2;
-	}
-	
+
 	public static List<Flock> getListFlock() {
 		return globalVar.listFlock;
 	}

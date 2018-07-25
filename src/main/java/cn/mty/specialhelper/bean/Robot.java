@@ -6,28 +6,28 @@ import java.util.Date;
 public class Robot implements Serializable{
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 8051728570566336304L;
-      private int id;
-      private String wxno;
-      private String nike;
-      private int contactId;//商户ID
-      private int flockId;//群id
-      private int sex;
-      private String orURL;
-      private String hardURL;
-      
-      private String createdUser;
-  	  private Date createdTime;
-  	  private String modifiedUser;
-  	  private Date modifiedTime;
+	private int id;
+	private String wxno;
+	private String nike;
+	private int contactId;//袒ID
+	private int flockId;//群id
+	private int sex;
+	private String orURL;
+	private String hardURL;
+
+	private String createdUser;
+	private Date createdTime;
+	private String modifiedUser;
+	private Date modifiedTime;
 	public Robot() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 	public Robot(int id, String wxno, String nike, int contactId, int flockId, int sex, String orURL, String hardURL,
-			String createdUser, Date createdTime, String modifiedUser, Date modifiedTime) {
+				 String createdUser, Date createdTime, String modifiedUser, Date modifiedTime) {
 		super();
 		this.id = id;
 		this.wxno = wxno;
@@ -201,6 +201,6 @@ public class Robot implements Serializable{
 			return false;
 		return true;
 	}
-	
-      
+
+
 }

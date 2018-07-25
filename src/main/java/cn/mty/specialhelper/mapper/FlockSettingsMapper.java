@@ -6,28 +6,28 @@ import cn.mty.specialhelper.bean.FlockSettings;
 
 public interface FlockSettingsMapper {
 	/**
-	 * Ìí¼ÓÈºÉèÖÃ
+	 * æ·»åŠ ç¾¤è®¾ç½®
 	 * @param fsFlockSettings
 	 */
 	void insertFlockSettings(FlockSettings fsFlockSettings);
 	/**
-	 * Í¨¹ıÈºid²éÑ¯ÈºµÄ·¿¼äÉèÖÃ
+	 * é€šè¿‡ç¾¤idæŸ¥è¯¢ç¾¤çš„æˆ¿é—´è®¾ç½®
 	 * @param flockId
-	 * @return ·µ»ØÈºÉèÖÃ
+	 * @return è¿”å›ç¾¤è®¾ç½®
 	 */
 	FlockSettings selectRoomIdByFlockId(String flockId);
 	/**
-	 * Í¨¹ıflockId²éÑ¯ÊÇ·ñÓĞÕâ¸öÈº
+	 * é€šè¿‡flockIdæŸ¥è¯¢æ˜¯å¦æœ‰è¿™ä¸ªç¾¤
 	 * @param flockId
-	 * @return 0´ú±íÃ»ÓĞ£¬1±íÓĞ
+	 * @return 0ä»£è¡¨æ²¡æœ‰ï¼Œ1è¡¨æœ‰
 	 */
 	Integer selectCunotByFlockId(String flockId);
 	/**
-	 * ĞŞ¸öÈºÉèÖÃ
-	 * @param flocksettings ÒªĞŞ¸ÄµÄÄÚÈİ
+	 * ä¿®ä¸ªç¾¤è®¾ç½®
+	 * @param flocksettings è¦ä¿®æ”¹çš„å†…å®¹
 	 */
 	void updeteFlockSettings(FlockSettings flocksettings);
-	
-	
+
+
 
 }

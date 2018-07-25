@@ -12,36 +12,36 @@ import net.sf.json.JSONObject;
 @Controller
 @RequestMapping("/test")
 public class TestController {
-  
-	
+
+
 	@RequestMapping("/test.do")
-	@ResponseBody 
+	@ResponseBody
 	public ResponseResult<Void> Httprequest(String arg) {
 		ResponseResult<Void> rr = new ResponseResult<Void>();
-		
+
 		System.out.println("test.do");
-		
+
 		//JSONObject json = JSONObject.fromObject(arg);
 		//JSONArray jsonArray =(JSONArray) json.get("playerList");
 		//System.out.println(jsonArray.size());
 		//for (int i = 0; i < jsonArray.size(); i++) {
 		//	JSONObject jo = jsonArray.getJSONObject(i);
 		//System.out.println(jo.getString("vcUnionid")+"......"+i);
-       //}
+		//}
 		System.out.println(arg);
-        //·¢ËÍ GET ÇëÇó
+		//å‘é€ GET è¯·æ±‚
 //        String s=HttpRequest.sendGet("http://192.168.58.216:8088/userlogin", "usernick=123&qunno=456");
 //        System.out.println(s);
-        
-        //·¢ËÍ POST ÇëÇó
-        //String sr=HttpRequest.sendPost("http://192.168.58.216:8088/userlogin", "usernick=123&qunno=456");
-        System.out.println("ÊÕµ½ÁËÇëÇó£¡");
-        
-        rr.setMessage("¸üÐÂ³É¹¦");
-		
+
+		//å‘é€ POST è¯·æ±‚
+		//String sr=HttpRequest.sendPost("http://192.168.58.216:8088/userlogin", "usernick=123&qunno=456");
+		System.out.println("æ”¶åˆ°äº†è¯·æ±‚ï¼");
+
+		rr.setMessage("æ›´æ–°æˆåŠŸ");
+
 		return rr;
 
 	}
-	
-	
+
+
 }

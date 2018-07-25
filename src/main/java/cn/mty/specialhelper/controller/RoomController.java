@@ -28,57 +28,57 @@ import net.sf.json.JSONObject;
 @Controller
 @RequestMapping("/room")
 public class RoomController {
-	
+
 	@Autowired
 	private IRoomService roomService;
 	@Autowired
 	private IFlockSettingsService flockSettingsService;
-	
-	//ÓÎÏ··ş·¢ËÍ·¿¼ä×´Ì¬¸üĞÂ·¿¼ä×´Ì¬
-	@RequestMapping("/updeteRoom.do")  
-    @ResponseBody  
-    public ResponseResult<Void> updeteRoom(String strContext){ 
+
+	//æ¸¸æˆæœå‘é€æˆ¿é—´çŠ¶æ€æ›´æ–°æˆ¿é—´çŠ¶æ€
+	@RequestMapping("/updeteRoom.do")
+	@ResponseBody
+	public ResponseResult<Void> updeteRoom(String strContext){
 		ResponseResult<Void> rr = new ResponseResult<Void>();
 		System.out.println("updeteRoom.do");
 		//System.out.println(strContext);
-		//½«jsonÑùÊ½µÄString×ª»¯Îªjson
-		
-		
+		//å°†jsonæ ·å¼çš„Stringè½¬åŒ–ä¸ºjson
+
+
 		JSONObject json = JSONObject.fromObject(strContext);
 		JSONArray jsonArray =(JSONArray) json.get("playerList");
 		System.out.println(jsonArray.size());
 		for (int i = 0; i < jsonArray.size(); i++) {
 			JSONObject jo = jsonArray.getJSONObject(i);
-		System.out.println(jo.getString("vcUnionid")+"......"+i);
-       }
-		
-		 
+			System.out.println(jo.getString("vcUnionid")+"......"+i);
+		}
+
+
 		//{"vcMerchantNo":"20171121165200002","vcSerialNo":"KF001","vcChatRoomSerialNo":"Q001",
 		//"vcRoomNo":"974655","nStatus":1,
 		//"playerList":[{"vcUnionid":"oQFTJ09z1NcqUKR3D003xpqJjg-U","vcHeadImgUrl":"","vcWeixinName":"?"}]}
 		System.out.println(json.get("playerList"));
-		
-		 Room room2 = new Room();
-         room2.setVcRoomNo((String)json.get("vcRoomNo"));
-         room2.setnStatus((Integer)json.get("nStatus"));
-         room2.setNum(jsonArray.size());
-         //ÉÌ»§µÄ±àºÅ
-         room2.setVcMerchatNo((String)json.get("vcMerchantNo"));
-         //Èº±àºÅ
-         room2.setVcChatRoomSerialNo((String)json.get("vcChatRoomSerialNo"));
-        Integer count =  roomService.updateRoomStatus(room2);
-         System.out.println(count);
-		
-		rr.setMessage("¸üĞÂ³É¹¦");
-		
+
+		Room room2 = new Room();
+		room2.setVcRoomNo((String)json.get("vcRoomNo"));
+		room2.setnStatus((Integer)json.get("nStatus"));
+		room2.setNum(jsonArray.size());
+		//å•†æˆ·çš„ç¼–å·
+		room2.setVcMerchatNo((String)json.get("vcMerchantNo"));
+		//ç¾¤ç¼–å·
+		room2.setVcChatRoomSerialNo((String)json.get("vcChatRoomSerialNo"));
+		Integer count =  roomService.updateRoomStatus(room2);
+		System.out.println(count);
+
+		rr.setMessage("æ›´æ–°æˆåŠŸ");
+
 		return rr;
-		
+
 	}
-	
-	//ÓÎÏ·½áÊøÏìÓ¦½á¹û¸ø»úÆ÷ÈË
-	@RequestMapping("/playerResult.do")  
-    @ResponseBody  
-    public ResponseResult<Void> playerResult(String strContext){ 
+
+	//æ¸¸æˆç»“æŸå“åº”ç»“æœç»™æœºå™¨äºº
+	@RequestMapping("/playerResult.do")
+	@ResponseBody
+	public ResponseResult<Void> playerResult(String strContext){
 		ResponseResult<Void> rr = new ResponseResult<Void>();
 		System.out.println("playerResult.do");
 		System.out.println(strContext);
@@ -94,120 +94,120 @@ public class RoomController {
 //					"nMaxPoint":"0","nTotalPoint":"0"},
 //		              {"vcUnionid":"","vcHeadImgUrl":"","vcWeixinName":"?","nWinCount":"0","nlostCount":"0",
 //						"nMaxPoint":"0","nTotalPoint":"0"}]}
-//		
+//
 		String param="fangno="+strContext;
 		HttpRequest.sendPost("http://192.168.58.216:8088/gamejiesuan", param);
-		
-		rr.setState(0);
-	    rr.setMessage("ÏìÓ¦½á¹û¸ø»úÆ÷ÈË");
-		return rr;
-		
-	}
-	
-	
 
-	//»úÆ÷ÈË¼ì²â¿ª·¿²éÑ¯ÈºÀïÓĞÃ»ÓĞ¿Õ·¿
-	@RequestMapping("/roomOpening.do")  
-    @ResponseBody  
-    public ResponseResult<Room> roomOpening(String flockId){ 
-		System.out.println("»úÆ÷ÈË¼ì²âµ½¿ª·¿");
-         
+		rr.setState(0);
+		rr.setMessage("å“åº”ç»“æœç»™æœºå™¨äºº");
+		return rr;
+
+	}
+
+
+
+	//æœºå™¨äººæ£€æµ‹å¼€æˆ¿æŸ¥è¯¢ç¾¤é‡Œæœ‰æ²¡æœ‰ç©ºæˆ¿
+	@RequestMapping("/roomOpening.do")
+	@ResponseBody
+	public ResponseResult<Room> roomOpening(String flockId){
+		System.out.println("æœºå™¨äººæ£€æµ‹åˆ°å¼€æˆ¿");
+
 		ResponseResult<Room> rr = new ResponseResult<Room>();
 		Room room = roomService.getRoomByNum();
 		System.out.println(room);
 		if(room==null){
 			rr.setState(0);
-			//rr.setMessage("Ã»ÓĞ¿ÕÏĞ·¿¼ä");
-			
+			//rr.setMessage("æ²¡æœ‰ç©ºé—²æˆ¿é—´");
+
 			FlockSettings fs = flockSettingsService.selectRoomIdByFlockId(flockId);
 			System.out.println(fs);
-			//ÇëÇó²ÎÊı
-//			"gameType":0, //0 ÇàµºÂé½« 1ÑÌÌ¨Âé½« 2Íşº£Âé½«
-//			"gameSubType":0,  
-//			"gameBipiao":-1, 
-//			"gameCount":0,	// 0£º4¾Ö£¨4·¿¿¨£©  1£º8¾Ö£¨8·¿¿¨£©  2£º12¾Ö£¨12·¿¿¨£©  3£º16¾Ö£¨16·¿¿¨£©
-//			"payType":1,	// 1£º·¿Ö÷Ö§¸¶  2£ºAAÖ§¸¶   3£ºÓ®¼ÒÖ§¸¶
-//			"ipLimit":0,	// 0/1  ÏàÍ¬ip²»ÏŞÖÆ/ÏŞÖÆ
-//			"gpsLimit":0,	// 0/1  GPS²»ÏŞÖÆ/ÏŞÖÆ
-//			"lianzhuangAddGameCount":0, // 0/1  Á¬×¯²»Ëã¾ÖÊı/Ëã¾ÖÊı
-//			"mustZiMo":0	
+			//è¯·æ±‚å‚æ•°
+//			"gameType":0, //0 é’å²›éº»å°† 1çƒŸå°éº»å°† 2å¨æµ·éº»å°†
+//			"gameSubType":0,
+//			"gameBipiao":-1,
+//			"gameCount":0,	// 0ï¼š4å±€ï¼ˆ4æˆ¿å¡ï¼‰  1ï¼š8å±€ï¼ˆ8æˆ¿å¡ï¼‰  2ï¼š12å±€ï¼ˆ12æˆ¿å¡ï¼‰  3ï¼š16å±€ï¼ˆ16æˆ¿å¡ï¼‰
+//			"payType":1,	// 1ï¼šæˆ¿ä¸»æ”¯ä»˜  2ï¼šAAæ”¯ä»˜   3ï¼šèµ¢å®¶æ”¯ä»˜
+//			"ipLimit":0,	// 0/1  ç›¸åŒipä¸é™åˆ¶/é™åˆ¶
+//			"gpsLimit":0,	// 0/1  GPSä¸é™åˆ¶/é™åˆ¶
+//			"lianzhuangAddGameCount":0, // 0/1  è¿åº„ä¸ç®—å±€æ•°/ç®—å±€æ•°
+//			"mustZiMo":0
 //			String param = "gameType="+fs.getGameType()+"&gameSubType="+fs.getGameSubType()+
 //					       "&gameBipiao="+fs.getGameBipiao()+"&gameCount="+fs.getGameCount()+
 //					       "&payType="+fs.getPayType()+"&ipLimit="+fs.getIpLimit()+
 //					       "&gpsLimit="+fs.getGpsLimit()+"&lianzhuangAddGameCount="+fs.getLianzhuangAddGameCount()+
 //					       "&mustZiMo="+fs.getMustZiMo();
-			
-//			vcUnionId:"oQFTJ09z1NcqUKR3D003xpqJjg-U",	// ¿ª·¿ÓÃ»§µÄunionid
-//			vcGameType:"qingdao", //ÓÎÏ·ÀàĞÍ
-//			vcChatRoomSerialNo:"Q001", //Èº±àºÅ
-//			vcIsAA:1, //ÊÇ·ñAA¿ª·¿  0 ²»ÊÇ  1 ÊÇµÄ
-//			vcSerialNo:"KF001", //¿ª·¿±àºÅ
+
+//			vcUnionId:"oQFTJ09z1NcqUKR3D003xpqJjg-U",	// å¼€æˆ¿ç”¨æˆ·çš„unionid
+//			vcGameType:"qingdao", //æ¸¸æˆç±»å‹
+//			vcChatRoomSerialNo:"Q001", //ç¾¤ç¼–å·
+//			vcIsAA:1, //æ˜¯å¦AAå¼€æˆ¿  0 ä¸æ˜¯  1 æ˜¯çš„
+//			vcSerialNo:"KF001", //å¼€æˆ¿ç¼–å·
 //			gameCount:0,
 //			vcJuShu:4
-			System.out.println("ÇëÇóÓÎÏ··ş");
-			
+			System.out.println("è¯·æ±‚æ¸¸æˆæœ");
+
 			String param="vcUnionId=oQFTJ09z1NcqUKR3D003xpqJjg-U&vcGameType=qingdao&vcChatRoomSerialNo=Q001"
 					+ "&vcIsAA=1&vcSerialNo=KF001&gameCount=0&vcJuShu=4";
-			//¸øÓÎÏ··ş·¢ËÍ post ÇëÇó            
-	        String s=HttpRequest.sendPost("http://192.168.58.83:7001/kaiyiju_create_room", param);
-	        
-	        System.out.println(s);
-	        
-//	        {"nResult":"1","vcResult":"success","vcRoomId":"908160","vcCallURL":""
-//	        	,"vcTitle":"","vcDesc":"ÇàµºÍæ·¨,4¾ÖºÃ","vcLogoImgURL":"Á´½ÓµÄÍ¼Æ¬µØÖ·"}
-	        //String json = "{\"2\":\"efg\",\"1\":\"abc\"}";  
-	     //   JSONObject json_test = JSONObject.fromObject(json); 
-	        JSONObject json = JSONObject.fromObject(s);  
-	        System.out.println(json.get("nResult"));
-	        
-	        String nResult = (String) json.get("nResult");
-	        String vcResult = (String) json.get("vcResult");
-	        String vcRoomId = (String) json.get("vcRoomId");
-	        if(nResult.equals("1")&&vcResult.equals("success")) {
-	                  Room room2 = new Room();
+			//ç»™æ¸¸æˆæœå‘é€ post è¯·æ±‚
+			String s=HttpRequest.sendPost("http://192.168.58.83:7001/kaiyiju_create_room", param);
 
-	                  
-	                 room2.setVcRoomNo(vcRoomId);
-	                 room2.setnStatus(0);
-	                 room2.setNum(0);
-	                 //ÉÌ»§µÄ±àºÅ
-	                 room2.setVcMerchatNo("20171121165200002");
-	                 //Èº±àºÅ
-	                 room2.setVcChatRoomSerialNo("Q001");
-	                 roomService.register(room2);
-	             
-	        }
-	        
-	        
-	        rr.setMessage(vcRoomId);
-	        
-			
-			
+			System.out.println(s);
+
+//	        {"nResult":"1","vcResult":"success","vcRoomId":"908160","vcCallURL":""
+//	        	,"vcTitle":"","vcDesc":"é’å²›ç©æ³•,4å±€å¥½","vcLogoImgURL":"é“¾æ¥çš„å›¾ç‰‡åœ°å€"}
+			//String json = "{\"2\":\"efg\",\"1\":\"abc\"}";
+			//   JSONObject json_test = JSONObject.fromObject(json);
+			JSONObject json = JSONObject.fromObject(s);
+			System.out.println(json.get("nResult"));
+
+			String nResult = (String) json.get("nResult");
+			String vcResult = (String) json.get("vcResult");
+			String vcRoomId = (String) json.get("vcRoomId");
+			if(nResult.equals("1")&&vcResult.equals("success")) {
+				Room room2 = new Room();
+
+
+				room2.setVcRoomNo(vcRoomId);
+				room2.setnStatus(0);
+				room2.setNum(0);
+				//å•†æˆ·çš„ç¼–å·
+				room2.setVcMerchatNo("20171121165200002");
+				//ç¾¤ç¼–å·
+				room2.setVcChatRoomSerialNo("Q001");
+				roomService.register(room2);
+
+			}
+
+
+			rr.setMessage(vcRoomId);
+
+
+
 		}else {
 			rr.setState(1);
-			rr.setMessage("¿ÉÒÔ½øÈë·¿¼ä");
+			rr.setMessage("å¯ä»¥è¿›å…¥æˆ¿é—´");
 			rr.setData(room);
 		}
-		
-     return rr;   
-    }  
- 
-	//»ñÈ¡ËùÓĞ·¿¼äµÄËùÓĞĞÅÏ¢
-	@RequestMapping("/selectAll.do")  
-    @ResponseBody  
-    public JSONPObject selectAll(String callbackparam,String dateTime){ 
+
+		return rr;
+	}
+
+	//è·å–æ‰€æœ‰æˆ¿é—´çš„æ‰€æœ‰ä¿¡æ¯
+	@RequestMapping("/selectAll.do")
+	@ResponseBody
+	public JSONPObject selectAll(String callbackparam,String dateTime){
 		System.out.println("4444");
 		System.out.println(dateTime);
-	
-   
+
+
 		ResponseResult<List<Room>> rr = new ResponseResult<List<Room>>();
 		List<Room> list = roomService.selectAll();
-		
-			rr.setState(1);
-			rr.setMessage("¿ÉÒÔ½øÈë·¿¼ä");
-			rr.setData(list);
-		
-		
-     return new JSONPObject(callbackparam, rr);   
-    }  
+
+		rr.setState(1);
+		rr.setMessage("å¯ä»¥è¿›å…¥æˆ¿é—´");
+		rr.setData(list);
+
+
+		return new JSONPObject(callbackparam, rr);
+	}
 }

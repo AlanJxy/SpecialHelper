@@ -5,27 +5,27 @@ import java.util.List;
 import cn.mty.specialhelper.bean.Room;
 
 public interface IRoomService {
-	
+
 	/**
-	 * ´´½¨roomºó±£´æ·¿¼ä×´Ì¬
+	 * åˆ›å»ºroomåä¿å­˜æˆ¿é—´çŠ¶æ€
 	 * @param user
 	 */
-	
+
 	void register(Room room);
 	/**
-	 * ¸ù¾İnum(ÈËÊı£©<4 »ñÈ¡·¿¼äºÍ×´Ì¬
-	 * @return Room ¶ÔÏó
+	 * æ ¹æ®num(äººæ•°ï¼‰<4 è·å–æˆ¿é—´å’ŒçŠ¶æ€
+	 * @return Room å¯¹è±¡
 	 */
 	Room getRoomByNum();
-	
-	 /**
-     * ²éÑ¯ËùÓĞ·¿¼ä
-     * @return list¼¯ºÏ
-     */
-	List<Room> selectAll();
-	
+
 	/**
-	 * ¸üĞÂ·¿¼ä×´Ì¬
+	 * æŸ¥è¯¢æ‰€æœ‰æˆ¿é—´
+	 * @return listé›†åˆ
+	 */
+	List<Room> selectAll();
+
+	/**
+	 * æ›´æ–°æˆ¿é—´çŠ¶æ€
 	 * @param room
 	 * @return
 	 */

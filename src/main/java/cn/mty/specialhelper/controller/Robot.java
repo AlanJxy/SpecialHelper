@@ -38,7 +38,7 @@ import javax.websocket.Session;
 @Controller
 @RequestMapping("/robot")
 public class Robot extends WebSocket {
-	
+
 	private Wechat wechat;
 	//http://127.0.0.1:8080/SpecialHelper/robot/start.do?arg=123
 
@@ -48,7 +48,7 @@ public class Robot extends WebSocket {
 		ResponseResult<Void> rr = new ResponseResult();
 		Date date = new Date();
 
-		/*//todo ²âÊÔÓÃ£¬ÓÃÍê¼ÇµÃÉ¾µô*/
+		/*//todo æµ‹è¯•ç”¨ï¼Œç”¨å®Œè®°å¾—åˆ æ‰*/
 		List<Flock> listf = new ArrayList<Flock>();
 		Flock flock = new Flock();
 		flock.qunNick = "asdasdasdas";
@@ -65,70 +65,70 @@ public class Robot extends WebSocket {
 	}
 
 
-	@RequestMapping("/start.do")  
-    @ResponseBody  
-    public ResponseResult<Void> updeteRoom(String kouling){ 
+	@RequestMapping("/start.do")
+	@ResponseBody
+	public ResponseResult<Void> updeteRoom(String kouling){
 		ResponseResult<Void> rr = new ResponseResult();
 		System.out.println("start.do2222222");
-		
-		String qrPath = "D://itchat4j//login"; // ±£´æµÇÂ½¶şÎ¬ÂëÍ¼Æ¬µÄÂ·¾¶£¬ÕâÀïĞèÒªÔÚ±¾µØĞÂ½¨Ä¿Â¼
-		IMsgHandlerFace msgHandler = new SimpleHandler(); // ÊµÏÖIMsgHandlerFace½Ó¿ÚµÄÀà
-		wechat = new Wechat(msgHandler, qrPath); //¡¾×¢Èë¡¿
-		wechat.start(); // Æô¶¯·şÎñ£¬»áÔÚqrPathÏÂÉú³ÉÒ»ÕÅ¶şÎ¬ÂëÍ¼Æ¬£¬É¨Ãè¼´¿ÉµÇÂ½£¬
-						//×¢Òâ£¬¶şÎ¬ÂëÍ¼Æ¬Èç¹û³¬¹ıÒ»¶¨Ê±¼äÎ´É¨Ãè»á¹ıÆÚ£¬¹ıÆÚÊ±»á×Ô¶¯¸üĞÂ£¬ËùÒÔÄã¿ÉÄÜĞèÒªÖØĞÂ´ò¿ªÍ¼Æ¬
-		
+
+		String qrPath = "D://itchat4j//login"; // ä¿å­˜ç™»é™†äºŒç»´ç å›¾ç‰‡çš„è·¯å¾„ï¼Œè¿™é‡Œéœ€è¦åœ¨æœ¬åœ°æ–°å»ºç›®å½•
+		IMsgHandlerFace msgHandler = new SimpleHandler(); // å®ç°IMsgHandlerFaceæ¥å£çš„ç±»
+		wechat = new Wechat(msgHandler, qrPath); //ã€æ³¨å…¥ã€‘
+		wechat.start(); // å¯åŠ¨æœåŠ¡ï¼Œä¼šåœ¨qrPathä¸‹ç”Ÿæˆä¸€å¼ äºŒç»´ç å›¾ç‰‡ï¼Œæ‰«æå³å¯ç™»é™†ï¼Œ
+		//æ³¨æ„ï¼ŒäºŒç»´ç å›¾ç‰‡å¦‚æœè¶…è¿‡ä¸€å®šæ—¶é—´æœªæ‰«æä¼šè¿‡æœŸï¼Œè¿‡æœŸæ—¶ä¼šè‡ªåŠ¨æ›´æ–°ï¼Œæ‰€ä»¥ä½ å¯èƒ½éœ€è¦é‡æ–°æ‰“å¼€å›¾ç‰‡
+
 		Core core = Core.getInstance();
 		String mLogerUid=core.getUserSelf().get("Uin").toString();
 		globalVar.mUin=mLogerUid;
-		
+
 		String param="uin="+globalVar.mUin;
-		
-		System.out.println(globalVar.getHouTaiAddress2()+"robot/selectRobot.do");
-    	System.out.println(param);
-    	
-    	String s=HttpRequest.sendGet(globalVar.getHouTaiAddress()+"robot/selectRobot.do", param);
-        System.out.println(s);
-		
-        JSONObject json = JSONObject.fromObject(s);
+
+		System.out.println(globalVar.getHouTaiAddress()+"robot/selectRobot.do");
+		System.out.println(param);
+
+		String s=HttpRequest.sendGet(globalVar.getHouTaiAddress()+"robot/selectRobot.do", param);
+		System.out.println(s);
+
+		JSONObject json = JSONObject.fromObject(s);
 		System.out.println(json.get("state"));
-		
+
 		JSONArray jsonArray =(JSONArray) json.get("data");
-		
+
 		for (int i = 0; i < jsonArray.size(); i++) {
-	        JSONObject jo = jsonArray.getJSONObject(i);
-	        //¸ù¾İ Êı¾İ£¬°Ñ ÈºĞ´µ½listÀïÃæÈ¥¡£
-	        Flock flock=new Flock();
-	        flock.qunNick=jo.getString("flockName");
-	        flock.qunNo=jo.getString("flockId");
-	        flock.qunZhuNick=jo.getString("adminName");
-	        globalVar.addQunToList(flock);
+			JSONObject jo = jsonArray.getJSONObject(i);
+			//æ ¹æ® æ•°æ®ï¼ŒæŠŠ ç¾¤å†™åˆ°listé‡Œé¢å»ã€‚
+			Flock flock=new Flock();
+			flock.qunNick=jo.getString("flockName");
+			flock.qunNo=jo.getString("flockId");
+			flock.qunZhuNick=jo.getString("adminName");
+			globalVar.addQunToList(flock);
 		}
-		rr.setMessage("µÇÂ¼³É¹¦");
-		System.out.println("´òÓ¡µ±Ç°¼àÌıµÄÈºÁĞ±í");
+		rr.setMessage("ç™»å½•æˆåŠŸ");
+		System.out.println("æ‰“å°å½“å‰ç›‘å¬çš„ç¾¤åˆ—è¡¨");
 		List<Flock> list=globalVar.getListFlock();
 		for(Flock flocl : list) {
 			System.out.println(flocl.qunNick);
 		}
-		
+
 		return rr;
-		
+
 	}
-	
-//	//±àÂë
+
+//	//ç¼–ç 
 //    String pw = "";
 //    BASE64Encoder encoder = new BASE64Encoder();
 //    String newPw = encoder.encode(pw.getBytes("utf-8"));
 //    String string = "8J+Sog==";
 //    System.out.println(newPw);
-//    //½âÂë
+//    //è§£ç 
 //    BASE64Decoder decoder = new BASE64Decoder();
 //    String oldpw = new String(decoder.decodeBuffer(string),"utf-8");
 //    System.out.println(oldpw);
 //    //System.out.println("");
-    
+
 	//http://127.0.0.1:8080/robot/checkExsist.do?qunno=123&usernick=wzt&uin=1633000544
-	@RequestMapping("/checkExsist.do")  
-    @ResponseBody
+	@RequestMapping("/checkExsist.do")
+	@ResponseBody
 	public ResponseResult<String> checkUserLogin(String qunno, String usernick, String uin) throws IOException {
 		ResponseResult<String> rr = new ResponseResult<String>();
 		System.out.println("checkExsist.do");
@@ -139,9 +139,9 @@ public class Robot extends WebSocket {
 
 		BASE64Decoder decoder = new BASE64Decoder();
 		String oldpw = new String(decoder.decodeBuffer(usernick), "utf-8");
-		System.out.println("BASE64Decoder¼ÓÃÜºóµÄ½á¹ûÎª==>" + oldpw);
+		System.out.println("BASE64DecoderåŠ å¯†åçš„ç»“æœä¸º==>" + oldpw);
 
-		//»ñÈ¡ ÈºêÇ³Æ
+		//è·å– ç¾¤æ˜µç§°
         /*String mQunNick = "";
         List<Flock> list = globalVar.getListFlock();
         for (Flock flocl : list) {
@@ -161,7 +161,7 @@ public class Robot extends WebSocket {
 			sdata="{\"errcode\":0,\"result\":\"0\"}";
 		}*/
 
-		/*//todo ²âÊÔÓÃ£¬ÓÃÍê¼ÇµÃÉ¾µô*/
+		/*//todo æµ‹è¯•ç”¨ï¼Œç”¨å®Œè®°å¾—åˆ æ‰*/
 		List<Flock> listf = new ArrayList<Flock>();
 		Flock flock = new Flock();
 		flock.qunNick = "asdasdasdas";
@@ -178,29 +178,29 @@ public class Robot extends WebSocket {
 
 	}
 	//http://127.0.0.1:8080/SpecialHelper/robot/updateRoomStatus.do?fangno=123
-	@RequestMapping("/updateRoomStatus.do")  
-    @ResponseBody  
-    public ResponseResult<String> updateRoomStatus(String fangno) throws InterruptedException, Exception, IOException{ 
+	@RequestMapping("/updateRoomStatus.do")
+	@ResponseBody
+	public ResponseResult<String> updateRoomStatus(String fangno) throws InterruptedException, Exception, IOException{
 		ResponseResult<String> rr = new ResponseResult<String>();
 		System.out.println("updateRoomStatus.do");
-		
+
 		System.out.println(fangno);
 //		{"vcMerchantNo":"20171121165200002","vcSerialNo":"1531292908828","vcChatRoomSerialNo":"5","vcRoomNo":"634388","nStatus":0
 //			,"playerList":[{"vcUnionid":"gggg","vcHeadImgUrl":"","vcWeixinName":"5bCP54mb6YC86JuL"}]}
 		JSONObject json = JSONObject.fromObject(fangno);
-		
-		//1 ±íÊ¾½áÊøÁË£¬²»·¢ÁË¡£  3±íÊ¾ÒÑ¾­¿ªÊ¼ÁË
+
+		//1 è¡¨ç¤ºç»“æŸäº†ï¼Œä¸å‘äº†ã€‚  3è¡¨ç¤ºå·²ç»å¼€å§‹äº†
 		System.out.println(json.get("nStatus"));
 		int nStatus=(Integer) json.get("nStatus");
 		if(nStatus==1) {
 			String sdata="{\"errcode\":0,\"result\":1}";
 			rr.setData(sdata);
-			rr.setMessage("¸üĞÂ·¿¼ä×´Ì¬³É¹¦");
+			rr.setMessage("æ›´æ–°æˆ¿é—´çŠ¶æ€æˆåŠŸ");
 			return rr;
 		}
 		String mFangJianHao=(String)json.get("vcRoomNo");
-		
-		//»ñÈ¡ ÈºêÇ³Æ
+
+		//è·å– ç¾¤æ˜µç§°
 		String mQunNick="";
 		String mQunNo=(String)json.get("vcChatRoomSerialNo");
 		List<Flock> list=globalVar.getListFlock();
@@ -210,7 +210,7 @@ public class Robot extends WebSocket {
 				mQunNick=flocl.qunNick;
 			}
 		}
-		
+
 		JSONArray jsonArray =(JSONArray) json.get("playerList");
 		int RenShu=jsonArray.size();
 		String wanJia1="";
@@ -219,140 +219,140 @@ public class Robot extends WebSocket {
 		String wanJia4="";
 		if(jsonArray.size()==4) {
 			BASE64Decoder decoder = new BASE64Decoder();
-			
-	        JSONObject jo = jsonArray.getJSONObject(0);
-	        String strTmp = new String(decoder.decodeBuffer((String)jo.get("vcWeixinName")),"utf-8");
-	        wanJia1=strTmp;
-	        System.out.println(strTmp);
-	        
-	        jo = jsonArray.getJSONObject(1);
-	        strTmp =new String(decoder.decodeBuffer((String)jo.get("vcWeixinName")),"utf-8");
-	        wanJia2=strTmp;	
-	        
-	        jo = jsonArray.getJSONObject(2);
-	        strTmp = new String(decoder.decodeBuffer((String)jo.get("vcWeixinName")),"utf-8");
-	        wanJia3=strTmp;
-	        
-	        jo = jsonArray.getJSONObject(3);
-	        strTmp =new String(decoder.decodeBuffer((String)jo.get("vcWeixinName")),"utf-8");
-	        wanJia4=strTmp;
+
+			JSONObject jo = jsonArray.getJSONObject(0);
+			String strTmp = new String(decoder.decodeBuffer((String)jo.get("vcWeixinName")),"utf-8");
+			wanJia1=strTmp;
+			System.out.println(strTmp);
+
+			jo = jsonArray.getJSONObject(1);
+			strTmp =new String(decoder.decodeBuffer((String)jo.get("vcWeixinName")),"utf-8");
+			wanJia2=strTmp;
+
+			jo = jsonArray.getJSONObject(2);
+			strTmp = new String(decoder.decodeBuffer((String)jo.get("vcWeixinName")),"utf-8");
+			wanJia3=strTmp;
+
+			jo = jsonArray.getJSONObject(3);
+			strTmp =new String(decoder.decodeBuffer((String)jo.get("vcWeixinName")),"utf-8");
+			wanJia4=strTmp;
 		}
-	        
-		//ÉÌ»§Ãû³Æ  ·¿¼äºÅ  È±¼¸ÈË£¬ Íæ·¨£¬¾ÖÊı£¬Ö§¸¶·½Ê½¡£
-		
-		String mShangHuName="ÉîÛÚÄ¦ÌìÓÎ";
+
+		//å•†æˆ·åç§°  æˆ¿é—´å·  ç¼ºå‡ äººï¼Œ ç©æ³•ï¼Œå±€æ•°ï¼Œæ”¯ä»˜æ–¹å¼ã€‚
+
+		String mShangHuName="æ·±åœ³æ‘©å¤©æ¸¸";
 		String mQueJiRen=Integer.toString(4-RenShu) ;
-		
+
 		String strSend="";
 		if(mQueJiRen.equals("0") & nStatus==3) {
-        	strSend+="@"+wanJia1 +" @" +wanJia2+ " @"+wanJia3+ " @"+wanJia4+"\n";
-        }
+			strSend+="@"+wanJia1 +" @" +wanJia2+ " @"+wanJia3+ " @"+wanJia4+"\n";
+		}
 		strSend+="/::), "+mShangHuName+"\n";
-        strSend+="·¿¼äºÅ£º"+mFangJianHao+"\n";//(String)jsonData.get("vcRoomNo")
-        if(mQueJiRen.equals("0")) {//& nStatus==3
-        	strSend+="¡¾ÒÑ¾­¿ªÊ¼¡¿\n";
-        }else {
-        	strSend+="¡¾È±"+mQueJiRen+"ÈË¡¿\n";
-        }
+		strSend+="æˆ¿é—´å·ï¼š"+mFangJianHao+"\n";//(String)jsonData.get("vcRoomNo")
+		if(mQueJiRen.equals("0")) {//& nStatus==3
+			strSend+="ã€å·²ç»å¼€å§‹ã€‘\n";
+		}else {
+			strSend+="ã€ç¼º"+mQueJiRen+"äººã€‘\n";
+		}
 		wechat.getHandler().sendJieSuanInfo (strSend,mQunNick,"","");
-		
+
 		String sdata="{\"errcode\":0,\"result\":1}";
 		rr.setData(sdata);
-		rr.setMessage("¸üĞÂ·¿¼ä×´Ì¬³É¹¦");
+		rr.setMessage("æ›´æ–°æˆ¿é—´çŠ¶æ€æˆåŠŸ");
 		return rr;
-		
+
 	}
 	//http://127.0.0.1:8080/SpecialHelper/robot/jiesuan.do?fangno=123
-	@RequestMapping("/jiesuan.do")  
-    @ResponseBody  
-    public ResponseResult<String> jiesuan(String fangno) throws Exception{ 
+	@RequestMapping("/jiesuan.do")
+	@ResponseBody
+	public ResponseResult<String> jiesuan(String fangno) throws Exception{
 		ResponseResult<String> rr = new ResponseResult<String>();
 		System.out.println("jiesuan.do");
-		
+
 		System.out.println(fangno);
-		
+
 //		fangno = "{\"vcMerchantNo\":\"20171121165200002\",\"vcSerialNo\":\"KF001\",\"vcChatRoomSerialNo\":\"Q001\",\"vcRoomNo\":\"046138\",\"vcLogNo\":\"1530091291351046138\",\"vcGameType\":\"qingdao\",\"vcRoomType\":\"0\",\"vcCardNum\":4,\"vcPlayerCount\":4,\"vcIsAARoom\":\"0\",\"vcRoomMasterId\":\"oQFTJ09z1NcqUKR3D003xpqJjg-U\","+
-//				"\"playerList\":[{\"vcUnionid\":\"aaaa\",\"vcHeadImgUrl\":\"\",\"vcWeixinName\":\"ÕÅÖ¾¹ú\",\"nWinCount\":\"11\",\"nlostCount\":\"11\",\"nMaxPoint\":\"1\",\"nTotalPoint\":\"11\"},{\"vcUnionid\":\"bbbb\",\"vcHeadImgUrl\":\"\",\"vcWeixinName\":\"ÉÌÓÀç÷\",\"nWinCount\":\"22\",\"nlostCount\":\"22\",\"nMaxPoint\":\"2\",\"nTotalPoint\":\"22\"},{\"vcUnionid\":\"cccc\",\"vcHeadImgUrl\":\"\",\"vcWeixinName\":\"ÁõÀÚ\",\"nWinCount\":\"33\",\"nlostCount\":\"33\",\"nMaxPoint\":\"3\",\"nTotalPoint\":\"33\"},{\"vcUnionid\":\"dddd\",\"vcHeadImgUrl\":\"\",\"vcWeixinName\":\"³Ì»À»À\",\"nWinCount\":\"44\",\"nlostCount\":\"44\",\"nMaxPoint\":\"4\",\"nTotalPoint\":\"44\"}]}";
+//				"\"playerList\":[{\"vcUnionid\":\"aaaa\",\"vcHeadImgUrl\":\"\",\"vcWeixinName\":\"å¼ å¿—å›½\",\"nWinCount\":\"11\",\"nlostCount\":\"11\",\"nMaxPoint\":\"1\",\"nTotalPoint\":\"11\"},{\"vcUnionid\":\"bbbb\",\"vcHeadImgUrl\":\"\",\"vcWeixinName\":\"å•†æ°¸çª\",\"nWinCount\":\"22\",\"nlostCount\":\"22\",\"nMaxPoint\":\"2\",\"nTotalPoint\":\"22\"},{\"vcUnionid\":\"cccc\",\"vcHeadImgUrl\":\"\",\"vcWeixinName\":\"åˆ˜ç£Š\",\"nWinCount\":\"33\",\"nlostCount\":\"33\",\"nMaxPoint\":\"3\",\"nTotalPoint\":\"33\"},{\"vcUnionid\":\"dddd\",\"vcHeadImgUrl\":\"\",\"vcWeixinName\":\"ç¨‹ç„•ç„•\",\"nWinCount\":\"44\",\"nlostCount\":\"44\",\"nMaxPoint\":\"4\",\"nTotalPoint\":\"44\"}]}";
 		String strSend="";
 		System.out.println(fangno);
-		//Ê±¼ä
+		//æ—¶é—´
 		Date d = new Date();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String nowTime=sdf.format(d);
 		String fangjianhao="";
-		
+
 		String userNick1="";
 		String jifen1="";
 		String zuizhong1="";
-		
+
 		String userNick2="";
 		String jifen2="";
 		String zuizhong2="";
-		
+
 		String userNick3="";
 		String jifen3="";
 		String zuizhong3="";
-		
+
 		String userNick4="";
 		String jifen4="";
 		String zuizhong4="";
-		
+
 		JSONObject json = JSONObject.fromObject(fangno);
 		System.out.println(json.get("vcChatRoomSerialNo"));
 		fangjianhao=(String) json.get("vcRoomNo");
-		
+
 		JSONArray jsonArray =(JSONArray) json.get("playerList");
-		
+
 		int maxScore=0;
 		int tmpScore=0;
-		String strDaYingJia="Ã»ÓĞ´óÓ®¼Ò";
-			
-		
+		String strDaYingJia="æ²¡æœ‰å¤§èµ¢å®¶";
+
+
 		if(jsonArray.size()==4) {
 			JSONObject jo = jsonArray.getJSONObject(0);
-			userNick1 =jo.getString("vcWeixinName"); 
+			userNick1 =jo.getString("vcWeixinName");
 			jifen1 =jo.getString("nMaxPoint");
-			zuizhong1 =jo.getString("nTotalPoint"); 
+			zuizhong1 =jo.getString("nTotalPoint");
 
 			jo = jsonArray.getJSONObject(1);
-			userNick2 =jo.getString("vcWeixinName"); 
+			userNick2 =jo.getString("vcWeixinName");
 			jifen2 =jo.getString("nMaxPoint");
-			zuizhong2 =jo.getString("nTotalPoint"); 
-			
+			zuizhong2 =jo.getString("nTotalPoint");
+
 			jo = jsonArray.getJSONObject(2);
-			userNick3 =jo.getString("vcWeixinName"); 
+			userNick3 =jo.getString("vcWeixinName");
 			jifen3 =jo.getString("nMaxPoint");
-			zuizhong3 =jo.getString("nTotalPoint"); 
-			
+			zuizhong3 =jo.getString("nTotalPoint");
+
 			jo = jsonArray.getJSONObject(3);
-			userNick4 =jo.getString("vcWeixinName"); 
+			userNick4 =jo.getString("vcWeixinName");
 			jifen4 =jo.getString("nMaxPoint");
-			zuizhong4 =jo.getString("nTotalPoint"); 
-			
-			
+			zuizhong4 =jo.getString("nTotalPoint");
+
+
 			if(!zuizhong1.substring(0,1).equals("-")) {
 				tmpScore=Integer.parseInt(zuizhong1);
 				if(tmpScore>maxScore) {
 					strDaYingJia=userNick1;
 				}
 			}
-			
+
 			if(!zuizhong2.substring(0,1).equals("-")) {
 				tmpScore=Integer.parseInt(zuizhong2);
 				if(tmpScore>maxScore) {
 					strDaYingJia=userNick2;
 				}
 			}
-			
-			
+
+
 			if(!zuizhong3.substring(0,1).equals("-")) {
 				tmpScore=Integer.parseInt(zuizhong3);
 				if(tmpScore>maxScore) {
 					strDaYingJia=userNick3;
 				}
 			}
-			
-			
+
+
 			if(!zuizhong4.substring(0,1).equals("-")) {
 				tmpScore=Integer.parseInt(zuizhong4);
 				if(tmpScore>maxScore) {
@@ -360,69 +360,69 @@ public class Robot extends WebSocket {
 				}
 			}
 		}
-		
-		strSend="/::)·¿¼äºÅ¡¾"+fangjianhao+"¡¿\n  ±¾ÈºÓÉ¡¾ÈºÖ÷¡¿´´½¨\n"+nowTime+"\n--------------------\nÓÎÏ·½á¹û";
-		strSend +="\n¡¾"+userNick1+"¡¿\n";
-		strSend +="\t»ı·Ö£º"+jifen1+"  ×îÖÕ£º"+zuizhong1;
-		strSend +="\n¡¾"+userNick2+"¡¿\n";
-		strSend +="\t»ı·Ö£º"+jifen2+"  ×îÖÕ£º"+zuizhong2;
-		strSend +="\n¡¾"+userNick3+"¡¿\n";
-		strSend +="\t»ı·Ö£º"+jifen3+"  ×îÖÕ£º"+zuizhong3;
-		strSend +="\n¡¾"+userNick4+"¡¿\n";
-		strSend +="\t»ı·Ö£º"+jifen4+"  ×îÖÕ£º"+zuizhong4;
-	            
-		
-		
+
+		strSend="/::)æˆ¿é—´å·ã€"+fangjianhao+"ã€‘\n  æœ¬ç¾¤ç”±ã€ç¾¤ä¸»ã€‘åˆ›å»º\n"+nowTime+"\n--------------------\næ¸¸æˆç»“æœ";
+		strSend +="\nã€"+userNick1+"ã€‘\n";
+		strSend +="\tç§¯åˆ†ï¼š"+jifen1+"  æœ€ç»ˆï¼š"+zuizhong1;
+		strSend +="\nã€"+userNick2+"ã€‘\n";
+		strSend +="\tç§¯åˆ†ï¼š"+jifen2+"  æœ€ç»ˆï¼š"+zuizhong2;
+		strSend +="\nã€"+userNick3+"ã€‘\n";
+		strSend +="\tç§¯åˆ†ï¼š"+jifen3+"  æœ€ç»ˆï¼š"+zuizhong3;
+		strSend +="\nã€"+userNick4+"ã€‘\n";
+		strSend +="\tç§¯åˆ†ï¼š"+jifen4+"  æœ€ç»ˆï¼š"+zuizhong4;
+
+
+
 		System.out.println(strSend);
-		//ÏÂÔØÈºÖ÷µÄ¶şÎ¬Âë£¬²¢·¢ËÍµ½ÈºÀïÃæ
+		//ä¸‹è½½ç¾¤ä¸»çš„äºŒç»´ç ï¼Œå¹¶å‘é€åˆ°ç¾¤é‡Œé¢
 //		String picPath="D:\\itchat4j\\pic\\"+nowTime+".jpg";
 //		getErWeiMaPic(picPath);
 		String picPath="D:\\itchat4j\\pic\\1111.jpg";
-		wechat.getHandler().sendJieSuanInfo (strSend,"¹ş¶û±õÂé½«1Èº",picPath,strDaYingJia);
-		
-		
+		wechat.getHandler().sendJieSuanInfo (strSend,"å“ˆå°”æ»¨éº»å°†1ç¾¤",picPath,strDaYingJia);
+
+
 		String sdata="{\"errcode\":0,\"result\":1}";
 		rr.setData(sdata);
-		rr.setMessage("½ÓÊÕ½áËãÊı¾İ³É¹¦");
+		rr.setMessage("æ¥æ”¶ç»“ç®—æ•°æ®æˆåŠŸ");
 		return rr;
 	}
-	
+
 	private void getErWeiMaPic(String picPath)throws Exception {
-		URL url = new URL("http://192.168.43.246:8080/SpecialHelper/robot/picUrl.do");  
-	    //´ò¿ªÁ´½Ó  
-	    HttpURLConnection conn = (HttpURLConnection)url.openConnection();  
-	    //ÉèÖÃÇëÇó·½Ê½Îª"GET"  
-	    conn.setRequestMethod("GET");  
-	    //³¬Ê±ÏìÓ¦Ê±¼äÎª5Ãë  
-	    conn.setConnectTimeout(5 * 1000);  
-	    //Í¨¹ıÊäÈëÁ÷»ñÈ¡Í¼Æ¬Êı¾İ  
-	    InputStream inStream = conn.getInputStream();  
-	    //µÃµ½Í¼Æ¬µÄ¶ş½øÖÆÊı¾İ£¬ÒÔ¶ş½øÖÆ·â×°µÃµ½Êı¾İ£¬¾ßÓĞÍ¨ÓÃĞÔ  
-	    byte[] data = readInputStream(inStream);  
-	    //newÒ»¸öÎÄ¼ş¶ÔÏóÓÃÀ´±£´æÍ¼Æ¬£¬Ä¬ÈÏ±£´æµ±Ç°¹¤³Ì¸ùÄ¿Â¼  
-	    File imageFile = new File(picPath);  
-	    //´´½¨Êä³öÁ÷  
-	    FileOutputStream outStream = new FileOutputStream(imageFile);  
-	    //Ğ´ÈëÊı¾İ  
-	    outStream.write(data);  
-	    //¹Ø±ÕÊä³öÁ÷  
-	    outStream.close(); 
+		URL url = new URL("http://192.168.43.246:8080/SpecialHelper/robot/picUrl.do");
+		//æ‰“å¼€é“¾æ¥
+		HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+		//è®¾ç½®è¯·æ±‚æ–¹å¼ä¸º"GET"
+		conn.setRequestMethod("GET");
+		//è¶…æ—¶å“åº”æ—¶é—´ä¸º5ç§’
+		conn.setConnectTimeout(5 * 1000);
+		//é€šè¿‡è¾“å…¥æµè·å–å›¾ç‰‡æ•°æ®
+		InputStream inStream = conn.getInputStream();
+		//å¾—åˆ°å›¾ç‰‡çš„äºŒè¿›åˆ¶æ•°æ®ï¼Œä»¥äºŒè¿›åˆ¶å°è£…å¾—åˆ°æ•°æ®ï¼Œå…·æœ‰é€šç”¨æ€§
+		byte[] data = readInputStream(inStream);
+		//newä¸€ä¸ªæ–‡ä»¶å¯¹è±¡ç”¨æ¥ä¿å­˜å›¾ç‰‡ï¼Œé»˜è®¤ä¿å­˜å½“å‰å·¥ç¨‹æ ¹ç›®å½•
+		File imageFile = new File(picPath);
+		//åˆ›å»ºè¾“å‡ºæµ
+		FileOutputStream outStream = new FileOutputStream(imageFile);
+		//å†™å…¥æ•°æ®
+		outStream.write(data);
+		//å…³é—­è¾“å‡ºæµ
+		outStream.close();
 	}
-	public static byte[] readInputStream(InputStream inStream) throws Exception{  
-	    ByteArrayOutputStream outStream = new ByteArrayOutputStream();  
-	    //´´½¨Ò»¸öBuffer×Ö·û´®  
-	    byte[] buffer = new byte[1024];  
-	    //Ã¿´Î¶ÁÈ¡µÄ×Ö·û´®³¤¶È£¬Èç¹ûÎª-1£¬´ú±íÈ«²¿¶ÁÈ¡Íê±Ï  
-	    int len = 0;  
-	    //Ê¹ÓÃÒ»¸öÊäÈëÁ÷´ÓbufferÀï°ÑÊı¾İ¶ÁÈ¡³öÀ´  
-	    while( (len=inStream.read(buffer)) != -1 ){  
-	        //ÓÃÊä³öÁ÷ÍùbufferÀïĞ´ÈëÊı¾İ£¬ÖĞ¼ä²ÎÊı´ú±í´ÓÄÄ¸öÎ»ÖÃ¿ªÊ¼¶Á£¬len´ú±í¶ÁÈ¡µÄ³¤¶È  
-	        outStream.write(buffer, 0, len);  
-	    }  
-	    //¹Ø±ÕÊäÈëÁ÷  
-	    inStream.close();  
-	    //°ÑoutStreamÀïµÄÊı¾İĞ´ÈëÄÚ´æ  
-	    return outStream.toByteArray();  
-	} 
+	public static byte[] readInputStream(InputStream inStream) throws Exception{
+		ByteArrayOutputStream outStream = new ByteArrayOutputStream();
+		//åˆ›å»ºä¸€ä¸ªBufferå­—ç¬¦ä¸²
+		byte[] buffer = new byte[1024];
+		//æ¯æ¬¡è¯»å–çš„å­—ç¬¦ä¸²é•¿åº¦ï¼Œå¦‚æœä¸º-1ï¼Œä»£è¡¨å…¨éƒ¨è¯»å–å®Œæ¯•
+		int len = 0;
+		//ä½¿ç”¨ä¸€ä¸ªè¾“å…¥æµä»bufferé‡ŒæŠŠæ•°æ®è¯»å–å‡ºæ¥
+		while( (len=inStream.read(buffer)) != -1 ){
+			//ç”¨è¾“å‡ºæµå¾€bufferé‡Œå†™å…¥æ•°æ®ï¼Œä¸­é—´å‚æ•°ä»£è¡¨ä»å“ªä¸ªä½ç½®å¼€å§‹è¯»ï¼Œlenä»£è¡¨è¯»å–çš„é•¿åº¦
+			outStream.write(buffer, 0, len);
+		}
+		//å…³é—­è¾“å…¥æµ
+		inStream.close();
+		//æŠŠoutStreamé‡Œçš„æ•°æ®å†™å…¥å†…å­˜
+		return outStream.toByteArray();
+	}
 
 }
