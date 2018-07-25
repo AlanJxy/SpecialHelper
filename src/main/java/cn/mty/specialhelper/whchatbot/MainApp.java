@@ -17,7 +17,10 @@ import java.nio.channels.NotYetConnectedException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MainApp {
+public class MainApp{
+
+    protected static Map<String,Wechat> wechatMapa = new HashMap<String, Wechat>();
+    protected static Wechat wechata;
 
     public static void initFrame() {
         Frame frame = new Frame("摩天游小助手");
@@ -70,12 +73,12 @@ public class MainApp {
 				String mLogerUid=core.getUserSelf().get("Uin").toString();
 				globalVar.mUin=mLogerUid;
 
-                Map<String, Wechat> wechatMap = new HashMap<String, Wechat>();
-                wechatMap.put(mLogerUid, wechat);
-                globalVar.wechatMap = wechatMap;
-                /*globalVar.mUin = 1111111111;*/
-                System.out.println("cn.mty.specialhelper.whchatbot.MainApp.72" + globalVar.wechatMap.get(mLogerUid));
-                System.out.println("cn.mty.specialhelper.whchatbot.MainApp.73" + globalVar.wechatMap.toString());
+                /*wechata = wechat;
+                wechatMapa.put(mLogerUid, wechat);
+                wechatMap = wechatMapa;
+                *//*globalVar.mUin = 1111111111;*//*
+                System.out.println("cn.mty.specialhelper.whchatbot.MainApp.72" + wechatMapa.get(mLogerUid));
+                System.out.println("cn.mty.specialhelper.whchatbot.MainApp.73" + wechatMap.toString());*/
 
                 //连接  webSocket客户端
                 try {

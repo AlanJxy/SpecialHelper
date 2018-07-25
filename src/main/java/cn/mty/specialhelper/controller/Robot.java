@@ -152,9 +152,11 @@ public class Robot extends WebSocket{
         }
 
 		String sdata="";
-		Map<String, Wechat> wechatMap = this.wechatMap;
-		Wechat wechat = wechatMap.get(uin);
-		if(wechatMap.get(uin).getHandler().isExistQunChengYuan(mQunNick,oldpw).equals("1"))//pQunNick, pChengYuanNick))
+		Wechat wechat;
+		String qrPath = "D://itchat4j//login"; // 保存登陆二维码图片的路径，这里需要在本地新建目录
+		IMsgHandlerFace msgHandler = new SimpleHandler(); // 实现IMsgHandlerFace接口的类
+		wechat = new Wechat(msgHandler, qrPath); //【注入】
+		if(wechat.getHandler().isExistQunChengYuan(mQunNick,oldpw).equals("1"))//pQunNick, pChengYuanNick))
 		{
 			rr.setState(1);
 			/*sdata="{\"errcode\":0,\"result\":\"1\"}";*/
@@ -247,7 +249,8 @@ public class Robot extends WebSocket{
 		}else {
 			strSend+="【缺"+mQueJiRen+"人】\n";
 		}
-		globalVar.wechatMap.get(uin).getHandler().sendJieSuanInfo (strSend,mQunNick,"","");
+		//todo
+		/*globalVar.wechatMap.get(uin).getHandler().sendJieSuanInfo (strSend,mQunNick,"","");*/
 
 		String sdata="{\"errcode\":0,\"result\":1}";
 		rr.setData(sdata);
@@ -371,7 +374,8 @@ public class Robot extends WebSocket{
 //		String picPath="D:\\itchat4j\\pic\\"+nowTime+".jpg";
 //		getErWeiMaPic(picPath);
 		String picPath="D:\\itchat4j\\pic\\1111.jpg";
-		globalVar.wechatMap.get(uin).getHandler().sendJieSuanInfo (strSend,"哈尔滨麻将1群",picPath,strDaYingJia);
+		//todo
+		/*globalVar.wechatMap.get(uin).getHandler().sendJieSuanInfo (strSend,"哈尔滨麻将1群",picPath,strDaYingJia);*/
 
 
 		String sdata="{\"errcode\":0,\"result\":1}";

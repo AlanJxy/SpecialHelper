@@ -1,6 +1,6 @@
 package cn.mty.specialhelper.websocket;
 
-import cn.mty.specialhelper.utils.globalVar;
+import cn.mty.specialhelper.whchatbot.MainApp;
 import org.springframework.stereotype.Component;
 
 import javax.websocket.*;
@@ -19,7 +19,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 @ServerEndpoint("/websocket/{userno}")
 @Component
-public class WebSocket extends globalVar {
+public class WebSocket extends MainApp {
 	//静态变量，用来记录当前在线连接数。应该把它设计成线程安全的。
 	private static int onlineCount = 0;
 	//concurrent包的线程安全Set，用来存放每个客户端对应的MyWebSocket对象。若要实现服务端与单一客户端通信的话，可以使用Map来存放，其中Key可以为用户标识

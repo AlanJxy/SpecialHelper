@@ -20,7 +20,7 @@ public class WebSocketSend {
     public static void LinkToServer(String uin)//?username=${sessionScope.username}
             throws Exception {
         //ws://localhost:8080/Chapter14/chatSocket?uin="+uin
-        client = new WebSocketClient(new URI("ws://192.168.58.179:8080/websocket/" + uin), new Draft_6455()) {
+        client = new WebSocketClient(new URI("ws://127.0.0.1:8080/websocket/" + uin), new Draft_6455()) {
 
             @Override
             public void onOpen(ServerHandshake arg0) {
